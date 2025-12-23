@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매출 통계 - 고객 관리 시스템</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>매출 통계</h1>
+            <div class="header-buttons">
+                <a href="/" class="btn btn-secondary">홈으로</a>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="chart-container">
+                <img src="{{ url_for('static', filename='images/sales_chart.png') }}" alt="매출 통계 차트">
+            </div>
+            <div class="statistics-summary">
+                <h3>통계 요약</h3>
+                <table>
+                    <tr>
+                        <th>총 매출</th>
+                        <td>{{ "{:,}".format(total_sales) }}원</td>
+                    </tr>
+                    <tr>
+                        <th>평균 매출</th>
+                        <td>{{ "{:,}".format(avg_sales) }}원</td>
+                    </tr>
+                    <tr>
+                        <th>최고 매출일</th>
+                        <td>{{ max_sales_date }} ({{ "{:,}".format(max_sales) }}원)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="charts-container">
+                <div class="chart-row">
+                    <div class="chart-item">
+                        <h3>성별 매출 분포</h3>
+                        <img src="{{ url_for('static', filename='images/gender_chart.png') }}" alt="성별 매출 통계">
+                    </div>
+                    <div class="chart-item">
+                        <h3>연령대별 매출 분포</h3>
+                        <img src="{{ url_for('static', filename='images/age_chart.png') }}" alt="연령대별 매출 통계">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

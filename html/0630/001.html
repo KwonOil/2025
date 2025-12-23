@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sticky Navigation Bar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .navbar {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            position: sticky;
+            top: 0; /* 스크롤 시 상단에 고정 */
+            z-index: 1000; /* 다른 요소 위에 표시 */
+        }
+
+        .navbar nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center; /* 좌우 중앙 정렬 */
+            /*align-items: center;*/ /* 상하 중앙 정렬 */
+        }
+
+        .navbar nav ul li {
+            margin: 0 15px;
+        }
+
+        .navbar nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        section {
+            height: 600px; /* 섹션 높이 설정 */
+            margin: 20px 0;
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <nav>
+            <ul>
+                <li><a href="#section1">섹션 1</a></li>
+                <li><a href="#section2">섹션 2</a></li>
+                <li><a href="#section3">섹션 3</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        <section id="section1">
+            <h2>섹션 1</h2>
+            <p>내용이 여기에 들어갑니다.</p>
+        </section>
+        <section id="section2">
+            <h2>섹션 2</h2>
+            <p>내용이 여기에 들어갑니다.</p>
+        </section>
+        <section id="section3">
+            <h2>섹션 3</h2>
+            <p>내용이 여기에 들어갑니다.</p>
+        </section>
+    </div>
+</body>
+</html>

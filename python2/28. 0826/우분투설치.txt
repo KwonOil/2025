@@ -1,0 +1,28 @@
+1.  프로그램 설치
+
+1) 버추얼박스
+https://www.virtualbox.org/
+
+2) 우분투22.04 서버버전
+https://ubuntu.com/download/server
+
+3) winscp
+https://winscp.net/eng/download.php
+
+4) putty (텔넷 터미널 프로그램)
+https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+
+2. 네트워크 관련 툴 설치
+sudo apt update
+sudo apt install net-tools
+# ip확인
+ifconfig
+
+3. 암호변경
+passwd
+
+4. 우분투 종료
+sudo shutdown now
+
+5. 네트워크 변경(버추얼박스)
+- 어뎁터에 브릿지

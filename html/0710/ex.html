@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/ex.css" media="screen">
+    <script src="js/ex.js" defer></script>
+    <title>출석률</title>
+
+    </head>
+    <body>
+    <div id="app-container">
+        <h1>출석률 관리</h1>
+        <div id="controls">
+        <!-- 년도/월 선택, 시작일, 종료일 여기서 JS가 동적으로 넣음 -->
+        </div>
+        <div id="calendar"></div>
+        <div id="result">
+        <p>출석률: <span id="attendance-rate">0%</span></p>
+        <p>출석일수: <span id="present-count">0</span></p>
+        <p>결석일수: <span id="absent-count">0</span></p>
+        <p>지각일수: <span id="late-count">0</span></p>
+        <p>조퇴일수: <span id="early-leave-count">0</span></p>
+        <p>남은 휴가일수: <span id="vacation-left">0</span></p>
+        </div>
+    </div>
+</body>
+</html>

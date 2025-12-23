@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery Element Position</title>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<style>
+		#divBox {
+			width: 150px;
+			height: 150px;
+			border: 1px solid lightgray;
+			overflow: auto;
+		}
+	</style>
+	<script>
+		$(function() {
+			$("button").on("click", function() {
+				$("#divBox").scrollLeft(70);	// id가 "divBox"인 요소의 수평 스크롤 바의 위치를 설정함.
+				$("#divBox").scrollTop(200);	// id가 "divBox"인 요소의 수직 스크롤 바의 위치를 설정함.
+
+				// id가 "divBox"인 요소의 수평 스크롤 바의 현재 위치를 반환함.
+				var str = "수평 스크롤 바의 현재 위치는 left 방향으로 " + $("#divBox").scrollLeft() + "픽셀이고,<br>";
+				// id가 "divBox"인 요소의 수직 스크롤 바의 현재 위치를 반환함.
+				str += "수직 스크롤 바의 현재 위치는 top 방향으로 " + $("#divBox").scrollTop() + "픽셀입니다.";
+				$("#text").html(str);
+			});
+		});
+	</script>
+</head>
+
+<body>
+
+	<div id="divBox">
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed congue imperdiet viverra. Donec euismod placerat gravida. Suspendisse placerat commodo lectus, sit amet malesuada libero porta ac. Phasellus egestas laoreet turpis eu fringilla. Quisquetincidunteratinurnaultrices,quiseleifendipsumvolutpat. In ultrices tortor neque, malesuada scelerisque nibh vehicula quis. In quam lacus, dictum quis consectetur in, consequat sit amet arcu. Nullam ac consequat neque.
+	Aliquam semper mollis purus vel tincidunt. Mauris vehicula dictum justo. Nullam congue, felis ut luctus gravida, nunc mi semper metus, sed vestibulum enim magna ut lacus. Pellentesque sed commodo urna. Vivamus sit amet risus ac libero facilisis consequat. Nunc volutpat in ligula id malesuada. Nullam est metus, pretium vitae rhoncus nec, eleifend id leo.
+	Quisque at condimentum ipsum. Aliquam erat volutpat. Donec hendrerit pretium leo vitae faucibus. Proin eget magna sit amet justo egestas pharetra. Suspendisse facilisis laoreet dui, sed lobortis risus dignissim eu. Quisque ac blandit dolor. Donec fringilla lobortis lectus quis cursus. Nullam pulvinar urna non ligula egestas luctus. Praesent vitae egestas orci, at mattis quam. Nunc eu tempor dolor. Aenean lobortis elit ac urna fringilla feugiat non vel ligula. Etiam dictum tortor eget turpis semper, quis euismod libero dictum.
+	</div><br>
+	<button>스크롤 바의 위치 설정</button>
+	<p id="text"></p>
+	
+</body>
+
+</html>

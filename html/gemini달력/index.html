@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>출석 관리 프로그램 (팝업 UI)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📅 출석 관리 프로그램</h1>
+        </header>
+
+        <section class="settings">
+            <div class="date-picker">
+                <label for="startDate">시작일:</label>
+                <input type="date" id="startDate">
+                <label for="endDate">종료일:</label>
+                <input type="date" id="endDate">
+            </div>
+            <button id="generateCalendar">달력 생성</button>
+        </section>
+
+        <main class="main-content">
+            <div id="calendar-container">
+                <p class="placeholder-text">시작일과 종료일을 선택하고 '달력 생성' 버튼을 눌러주세요.</p>
+            </div>
+
+            <div class="stats-container">
+                <section class="stats">
+                    <h2>📊 현황 통계</h2>
+                    <div id="stats-output">
+                        <h3>종합 현황</h3>
+                        <p><strong>전체 출석률:</strong> <span id="total-attendance-rate">N/A</span></p>
+                        <p><strong>사용 가능 휴가:</strong> <span id="available-vacation">0</span></p>
+                        <hr>
+                        <h3>단위기간별 출석률</h3>
+                        <div id="period-stats-container">
+                            </div>
+                        <hr>
+                        <h3>전체 누적 현황</h3>
+                        <p><strong>총 수업일 (평일):</strong> <span id="total-days">0</span></p>
+                        <p><strong>출석:</strong> <span id="present-days">0</span></p>
+                        <p><strong>결석:</strong> <span id="absent-days">0</span></p>
+                        <p><strong>지각:</strong> <span id="late-days">0</span></p>
+                        <p><strong>조퇴:</strong> <span id="early-days">0</span></p>
+                        <p><strong>사용한 휴가:</strong> <span id="vacation-days">0</span></p>
+                        <p><strong>페널티 결석:</strong> <span id="penalty-absent">0</span></p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div id="day-popup" class="day-popup" style="display: none;">
+        <div class="status-options">
+            <input type="radio" id="popup-present" name="popup-status" value="present"><label for="popup-present" class="status-label present">출석</label>
+            <input type="radio" id="popup-absent" name="popup-status" value="absent"><label for="popup-absent" class="status-label absent">결석</label>
+            <input type="radio" id="popup-late" name="popup-status" value="late"><label for="popup-late" class="status-label late">지각</label>
+            <input type="radio" id="popup-early" name="popup-status" value="early"><label for="popup-early" class="status-label early">조퇴</label>
+            <input type="radio" id="popup-vacation" name="popup-status" value="vacation"><label for="popup-vacation" class="status-label vacation">휴가</label>
+        </div>
+        <p class="info-text">선택된 상태를 다시 누르면 초기화</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

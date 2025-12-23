@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클래스 설정 메소드</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #myElement {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+        #myElement.highlight {
+            background-color: yellow;
+        }
+        /* .highlight {
+            background-color: yellow !important;
+        } */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="myElement">My Element</div>
+<button id="addClass">Add Class</button>
+<button id="removeClass">Remove Class</button>
+<button id="toggleClass">Toggle Class</button>
+<button id="hasClass">Check Class</button>
+
+<div id="info"></div>
+
+<script>
+    $(function() {
+        $("#addClass").click(function() {
+            $("#myElement").addClass("highlight");
+            $("#info").text("Highlight Class Added.");
+        });
+
+        $("#removeClass").click(function() {
+            $("#myElement").removeClass("highlight");
+            $("#info").text("Highlight Class Removed.");
+        });
+
+        $("#toggleClass").click(function() {
+            $("#myElement").toggleClass("hidden");
+            $("#info").text("Toggle Hidden Class.");
+        });
+
+        $("#hasClass").click(function() {
+            var hasClass = $("#myElement").hasClass("highlight");
+            $("#info").text("Has Highlight Class: " + hasClass);
+        });
+    });
+</script>
+
+</body>
+</html>

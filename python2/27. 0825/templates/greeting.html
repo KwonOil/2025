@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>인사말</title>
+</head>
+<body>
+    {% if template_variable == "Hello" %}
+        <p>{{ template_variable }}, World!</p>
+    {% elif template_variable == "Goodbye" %}
+        <p>{{ template_variable }}, See you later!</p>
+    {% else %}
+        <p>Unknown greeting: {{ template_variable }}</p>
+    {% endif %}
+</body>
+</html>

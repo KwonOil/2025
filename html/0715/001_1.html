@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery Element Traversing</title>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<style>
+		.container * { 
+			display: block;
+			border: 1px solid lightgray;
+			padding: 5px;
+			margin: 15px;
+		}
+	</style>
+	<script>
+		$(function() {
+			$("button").on("click", function() {
+				// $("p").parent()						// <p>요소의 부모 요소를 선택함.
+				$("p").parents()						// <p>요소의 모든 부모 요소들을 선택함.
+				.css({"border": "2px solid red"});	// 해당 요소의 CSS 스타일을 변경함.
+			});
+		});
+	</script>
+</head>
+
+<body>
+
+	<h1>.parent(), .parents() 메소드</h1>
+	<div class="container">
+		<div>div 요소
+			<ul>ul 요소
+				<li>li 요소</li>
+				<li>li 요소
+					<p>p 요소 (기준)
+						<span>span 요소</span>
+					</p>
+				</li>
+				<li>li 요소</li>
+			</ul>
+		</div>
+	</div>
+
+	<button>p 요소의 부모 요소</button>
+	
+</body>

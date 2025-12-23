@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>가계부 앱</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+        h2 { text-align: center; }
+        form { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        form > * { flex: 1 1 150px; padding: 8px; }
+        #transactions { margin-top: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { padding: 8px; border: 1px solid #ddd; text-align: center; }
+    </style>
+</head>
+<body>
+    <h2>가계부 앱</h2>
+
+    <form id="transaction-form">
+        <input type="date" id="date" required />
+        <input type="text" id="category" placeholder="항목명" required />
+        <input type="number" id="amount" placeholder="금액" required />
+        <select id="type">
+        <option value="수입">수입</option>
+        <option value="지출">지출</option>
+        </select>
+        <button type="submit">추가</button>
+    </form>
+
+    <div id="transactions">
+        <h3>내역</h3>
+        <table>
+        <thead>
+            <tr><th>날짜</th><th>항목</th><th>금액</th><th>구분</th></tr>
+        </thead>
+        <tbody id="transaction-list"></tbody>
+        </table>
+    </div>
+
+    <div>
+        <h3>수입/지출 통계</h3>
+        <canvas id="chart" height="200"></canvas>
+    </div>
+
+    <script>
+        const form = document.getElementById('transaction-form');
+        const list = document.getElementById('transaction-list');
+        const chartCtx = document.getElementById('chart').getContext('2d');
+
+        let data = JSON.parse(localStorage.getItem('budgetData')) || [];
+
+        const saveData = () => {
+        localStorage.setItem('budgetData', JSON.stringify(data));
+        };
+
+        const renderList = () => {
+        list.innerHTML = '';
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${item.date}</td><td>${item.category}</td><td>${item.amount}</td><td>${item.type}</td>`;
+            list.appendChild(row);
+        });
+        };
+
+        const renderChart = () => {
+        const income = data.filter(d => d.type === '수입').reduce((sum, d) => sum + d.amount, 0);
+        const expense = data.filter(d => d.type === '지출').reduce((sum, d) => sum + d.amount, 0);
+
+        if (window.myChart) window.myChart.destroy();
+
+        window.myChart = new Chart(chartCtx, {
+            type: 'doughnut',
+            data: {
+            labels: ['수입', '지출'],
+            datasets: [{
+                data: [income, expense],
+                backgroundColor: ['#4caf50', '#f44336']
+            }]
+            },
+            options: {
+            responsive: true,
+            plugins: { legend: { position: 'bottom' } }
+            }
+        });
+        };
+
+        form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const date = document.getElementById('date').value;
+        const category = document.getElementById('category').value;
+        const amount = parseInt(document.getElementById('amount').value);
+        const type = document.getElementById('type').value;
+
+        if (!date || !category || isNaN(amount)) return;
+
+        data.push({ date, category, amount, type });
+        saveData();
+        renderList();
+        renderChart();
+        form.reset();
+        });
+
+        renderList();
+        renderChart();
+    </script>
+</body>
+</html>

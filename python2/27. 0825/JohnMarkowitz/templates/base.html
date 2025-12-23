@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}John Markowitz{% endblock %}</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='js/fancybox/jquery.fancybox.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/all.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/screen.css') }}" />
+</head>
+
+<body>
+	<div id="wrapper">
+		<div class="wrapper-holder">
+			<header id="header">
+				<a class="menu_trigger" href="#">menu</a>
+				<nav id="nav">
+					<ul>
+						<li><a href="{{ url_for('index') }}">Home</a></li>
+						<li><a href="{{ url_for('myskills') }}">My skills</a></li>
+						<li><a href="{{ url_for('portfolio') }}">Portfolio</a></li>
+						<li><a href="{{ url_for('contact') }}">Contact</a></li>
+					</ul>
+				</nav>
+				<h1 class="logo">John Markowitz</h1>
+				<h2 class="slogan">Professional Web Designer</h2>
+			</header>
+		</div>
+
+		<!-- 메인 컨텐츠 -->
+		<div class="wrapper-holder grey">
+			<section id="main">
+				{% block content %}{% endblock %}
+			</section>
+		</div>
+
+		<footer id="footer">
+			<div class="footer-content">
+				<ul class="social">
+					<li class="email"><a href="#">Email</a></li>
+					<li class="facebook"><a href="#">Facebook</a></li>
+					<li class="google"><a href="#">Google+</a></li>
+					<li class="twitter"><a href="#">Twitter</a></li>
+					<li class="pinterest"><a href="#">Pinterest</a></li>
+				</ul>
+				<p class="copy">Copyright 2014 John Markowitz. All rights reserved.</p>
+			</div>
+		</footer>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="{{ url_for('static', filename='js/isotope.pkgd.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/cells-by-row.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/fancybox/jquery.fancybox.pack.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

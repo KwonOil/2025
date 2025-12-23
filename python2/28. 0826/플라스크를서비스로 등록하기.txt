@@ -1,0 +1,23 @@
+# 플라스크를 서비스로 등록하기
+sudo nano /etc/systemd/system/flask_app.service
+
+# flask_app.service 파일 생성
+[Unit]
+Description=Flask Application
+After=network.target
+
+[Service]
+User=samsungedu
+WorkingDirectory=/home/samsungedu/flask_app/flask_login
+Environment="PATH=/home/samsungedu/flask_app/venv/bin"
+ExecStart=/home/samsungedu/flask_app/venv/bin/python app.py
+
+[Install]
+WantedBy=multi-user.target
+
+# 서비스 수정후 데몬 재로딩
+sudo systemctl daemon-reload
+
+# 플라스크 서비스 등록
+sudo systemctl start flask_app
+sudo systemctl enable flask_app

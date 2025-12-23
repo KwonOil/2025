@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>JSON API 읽기</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.0.1/highlight.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<h1>JSON API 읽기</h1>
+<select id="dataSelector">
+    <option value="1">데이터 1</option>
+    <option value="2">데이터 2</option>
+    <option value="3">데이터 3</option>
+</select>
+<button id="loadData">데이터 불러오기</button>
+<pre><code id="detail" class="json"></code></pre>
+<script>
+$(document).ready(function() {
+    $('#loadData').click(function() {
+        
+        let getidx = $('#dataSelector').val() || '1';
+        var apiUrl = 'http://127.0.0.1:5000/api/' + getidx;
+
+        $.ajax({
+            url: apiUrl,
+            method: 'GET',
+            dataType: 'json',   // 반환받는 데이터 타입 지정 (JSON)
+            success: function(data) {
+                console.log('JSON 데이터:', data);
+                //$("#detail").text(JSON.stringify(data));
+                $("#detail").text(JSON.stringify(data, null, 2));
+                hljs.highlightBlock(document.getElementById('detail')); // 하이라이팅 적용
+            },
+            error: function(xhr, status, error) {
+                console.error('오류 발생:', status, error);
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>

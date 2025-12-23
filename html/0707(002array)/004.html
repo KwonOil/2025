@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript</title>
+    <script src="js/004.js" defer></script>
+</head>
+<body>
+    <div id = "myDiv">
+        <span>이름 : </span><input type = "name" id = "name" autocomplete="off"/><br>
+        <span>국어 성적 : </span><input type = "number" id = "korean" autocomplete="off"/><br>
+        <span>수학 성적 : </span><input type = "number" id = "math" autocomplete="off"/><br>
+        <span>영어 성적 : </span><input type = "number" id = "english" autocomplete="off"/><br>
+        <span>과학 성적 : </span><input type = "number" id = "science" autocomplete="off"/><br>
+        <button class = "submitBtn" onclick="inputScore(this)">성적 입력</button>
+        <button class = "classBtn" onclick="printClassScore(scores, classes)">과목별 점수 보기</button>
+        <button class = "studentBtn" onclick="printStudentScore(scores, names)">학생별 점수 보기</button>
+    </div>
+    <div id = "print"></div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML문서</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="../myfunc.js"></script>
+    <script src="js/001.js" defer></script>
+    <style>
+        .loading{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>$.get() 메소드</h1>
+    <p>$.get() 메소드는 서버로부터 데이터를 비동기적으로 가져오는 데 사용됩니다.</p>
+    <p>이 메소드는 URL과 함께 데이터를 가져오며, 성공적으로 데이터를 가져오면 지정된 콜백 함수를 실행합니다.</p>
+    <h3>형식 : $.get(URL주소[,매개변수][,콜백함수]);</h3>
+    <div id = "result">
+        <p class = "loading">
+            <img src = "https://cdn.pixabay.com/animation/2022/07/29/03/42/03-42-05-37_512.gif" width = "300" />
+        </p>
+    </div>
+    <div id = "result2">
+        <p class = "loading">서버로부터 데이터를 가져오는 중...</p>
+    </div>
+    <div id = "result3">
+        <p class = "loading">서버로부터 데이터를 가져오는 중...</p>
+    </div>
+    <div id = "result4">
+        <p class = "loading">서버로부터 데이터를 가져오는 중...</p>
+    </div>
+</body>
+</html>

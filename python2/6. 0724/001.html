@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>JSON API 읽기</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<h1>JSON API 읽기</h1>
+<button id="loadData">데이터 불러오기</button>
+
+<script>
+$(document).ready(function() {
+    $('#loadData').click(function() {
+        
+        var apiUrl = 'http://127.0.0.1:5000/api'
+
+        $.ajax({
+            url: apiUrl,
+            method: 'GET',
+            dataType: 'json',   // 반환받는 데이터 타입 지정 (JSON)
+            success: function(data) {
+                console.log('JSON 데이터:', data);
+            },
+            error: function(xhr, status, error) {
+                console.error('오류 발생:', status, error);
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>

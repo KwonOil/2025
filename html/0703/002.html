@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, th, td{
+            border : 1px solid black;
+        }
+        th, td{
+            padding : 5px 10px;
+            text-align : center;
+        }
+        th{
+            color : rgb(219, 0, 0);
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr><th>학생명</th><th>점수</th></tr>
+        </thead>
+        <tbody id = "scoreTable">
+
+        </tbody>
+        <tfoot id = "scoreFoot">
+
+        </tfoot>
+    </table>
+    <script>
+        // let student = [
+        //     {name : '철수', score : 89},
+        //     {name : '영희', score : 85},
+        //     {name : '기영', score : 95},
+        //     {name : '원영', score : 90},
+        //     {name : '재석', score : 93},
+        //     {name : '길동', score : 99},
+        //     {name : '순신', score : 91}
+        // ];
+        let student = [], amount = 0;
+        amount = prompt("학생 수를 입력하세요");
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+        for(let i = 0; i < amount; i++){
+            let name = '';
+            for(let j = 0; j < 3; j++){
+                name += chars[Math.floor(Math.random() * chars.length)];
+            }
+            student.push({name : name, score : Math.round(Math.random()*100)});
+        }
+        let add = 0, avg = 0;
+
+        for(let i = 0; i < student.length; i++){
+            // add += student[i].score;
+            document.getElementById("scoreTable").innerHTML += `<tr><td>${student[i].name}</td><td>${student[i].score}</td></tr>`;
+        }
+        
+        student.forEach((s)=>{
+            add += s['score'];
+        });
+
+        avg = (add / student.length).toFixed(1);
+        
+        document.getElementById("scoreFoot").innerHTML += `<tr><th>인원</th><th>${amount}명</th></tr>`;
+        document.getElementById("scoreFoot").innerHTML += `<tr><th>총점</th><th>${add}점</th></tr>`;
+        document.getElementById("scoreFoot").innerHTML += `<tr><th>평균</th><th>${avg}점</th></tr>`;
+    </script>
+</body>
+</html>

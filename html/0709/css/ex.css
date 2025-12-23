@@ -1,0 +1,96 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+div {
+    text-align: center;
+    margin: 0 auto 20px;     /* 가운데 정렬 및 하단 여백 */
+    width: 100%;             /* 부모 기준 전체 너비 */
+}
+
+#inputText {
+    padding: 10px;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 16px;
+    margin-left: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#content {
+    box-sizing: border-box;
+    margin-top: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 8px;
+    background-color: #f0f4f8;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    transition: 0.2s;
+}
+
+/* ▶와 텍스트를 감싼 영역 */
+.item-text {
+    display: inline-block;
+    color: #333;
+    text-align: left;
+    flex-grow: 1;
+}
+
+li:hover {
+    background-color: #e2e6ea;
+}
+
+.removeBtn {
+    background-color: #dc3545;
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 4px;
+}
+
+.removeBtn:hover {
+    background-color: #c82333;
+}

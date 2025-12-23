@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트 박스와 선택 박스 예제</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        input, select { margin: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1>값 추가 예제</h1>
+    
+    <input type="text" id="inputValue" placeholder="값을 입력하세요">
+    <input type="button" id="addButton" value="확인">
+    
+    <select id="valueSelect">
+        <option>선택하세요</option>
+    </select>
+
+    <script>
+        $(document).ready(function() {
+            $('#addButton').click(function() {
+                var inputValue = $('#inputValue').val();
+                
+                if (inputValue) {
+                    $('#valueSelect').append($('<option>', {
+                        value: inputValue,
+                        text: inputValue
+                    }));
+                    $('#inputValue').val('');
+                } else {
+                    
+                    alert('값을 입력하세요!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

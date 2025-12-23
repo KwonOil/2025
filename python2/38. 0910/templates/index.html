@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>질병 예측</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            margin-bottom: 5px;
+        }
+        input, select {
+            padding: 8px;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>질병 예측 시스템</h2>
+    <form id="predictForm">
+        <div class="form-group">
+            <label for="Age">나이:</label>
+            <input type="number" id="Age" name="Age" value="30" min = 0>
+        </div>
+        <div class="form-group">
+            <label for="Blood_Pressure">혈압:</label>
+            <input type="number" id="Blood_Pressure" name="Blood_Pressure" value="120" min = 0>
+        </div>
+        <div class="form-group">
+            <label for="Cholesterol">콜레스테롤:</label>
+            <input type="number" id="Cholesterol" name="Cholesterol" value="200" min = 0>
+        </div>
+        <div class="form-group">
+            <label for="Gender_Encoded">성별:</label>
+            <select id="Gender_Encoded" name="Gender_Encoded">
+                <option value="0">여성</option>
+                <option value="1">남성</option>
+            </select>
+        </div>
+        <button type="submit">예측하기</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+    $(document).ready(function() {
+        $('#predictForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            // 입력값 수집
+            const formData = {
+                Age: parseInt($('#Age').val()),
+                Blood_Pressure: parseInt($('#Blood_Pressure').val()),
+                Cholesterol: parseInt($('#Cholesterol').val()),
+                Gender_Encoded: parseInt($('#Gender_Encoded').val())
+            };
+
+            // API 호출
+            $.ajax({
+                url: 'http://127.0.0.1:5001/predict',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    $('#result').html(`
+                        <h3>예측 결과</h3>
+                        <p>나이: <strong>${response.Age}</strong></p>
+                        <p>혈압: <strong>${response.Blood_Pressure}</strong></p>
+                        <p>콜레스테롤: <strong>${response.Cholesterol}</strong></p>
+                        <p>성별: <strong>${response.Gender}</strong></p>
+                        <p>당뇨병 발병 가능성: <strong>${response.prediction}</strong></p>
+                        <p>신뢰도: ${(response.probability * 100).toFixed(2)}%</p>
+                    `).css('color', 'green');
+                },
+                error: function(xhr, status, error) {
+                    $('#result').html(`
+                        <div class="error">
+                            <h3>에러 발생</h3>
+                            <p>${error}</p>
+                            <p>상태 코드: ${xhr.status}</p>
+                        </div>
+                    `);
+                }
+            });
+        });
+
+        // 입력값 유효성 검사
+        $('input[type="number"]').on('input', function() {
+            const min = $(this).attr('min');
+            const max = $(this).attr('max');
+            let val = $(this).val();
+            
+            if (min && val < min) {
+                $(this).val(min);
+            }
+            if (max && val > max) {
+                $(this).val(max);
+            }
+        });
+    });
+    </script>
+</body>
+</html>

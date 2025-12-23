@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>위치 메소드</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            height: 2000px; /* 스크롤을 위한 높이 */
+            position: relative;
+            border: 1px solid #f10a0a;
+            margin: 10px;
+        }
+        #myElement {
+            position: absolute;
+            top: 300px;
+            left: 50px;
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+        }
+        #info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="myElement">My Element</div>
+<button id="getOffset">Get Offset</button>
+<button id="getPosition">Get Position</button>
+<button id="getScrollLeft">Get Scroll Left</button>
+<button id="getScrollTop">Get Scroll Top</button>
+<button id="setScrollTop">Set Scroll Top</button>
+<div id="info"></div>
+
+<script>
+    $(function() {
+        $("#getOffset").click(function() {
+            var offset = $("#myElement").offset();
+            $("#info").text("Offset - Top: " + offset.top + ", Left: " + offset.left);
+        });
+
+        $("#getPosition").click(function() {
+            var position = $("#myElement").position();
+            $("#info").text("Position - Top: " + position.top + ", Left: " + position.left);
+        });
+
+        $("#getScrollLeft").click(function() {
+            var scrollLeft = $(window).scrollLeft();
+            $("#info").text("Scroll Left: " + scrollLeft);
+        });
+
+        $("#getScrollTop").click(function() {
+            var scrollTop = $(window).scrollTop();
+            $("#info").text("Scroll Top: " + scrollTop);
+        });
+
+        $("#setScrollTop").click(function() {
+            $(window).scrollTop(200); // 200px로 스크롤 위치 설정
+            $("#info").text("Scroll Top set to 2000px");
+            // $('html, body').animate({ scrollTop: 500}, 50000);
+        });
+    });
+</script>
+
+</body>
+</html>

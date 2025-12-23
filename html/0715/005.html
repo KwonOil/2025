@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>필터링 메소드</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <style>
+        .container {
+            border: 2px solid #000;
+            padding: 20px;
+            margin: 10px;
+        }
+        .item {
+            border: 1px solid #00f;
+            padding: 10px;
+            margin: 5px;
+        }
+        .highlight {
+            background-color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="item" id="item1">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+    <div class="item">Item 4</div>
+    <div class="item">Item 5</div>
+</div>
+
+<button id="btnFirst">First</button>
+<button id="btnLast">Last</button>
+<button id="btnEq">Eq (2)</button>
+<button id="btnFilter">Filter (Item 2)</button>
+<button id="btnNot">Not (Item 3)</button>
+<button id="btnHas">Has (Item 2)</button>
+<button id="btnIs">Is (Item 1)</button>
+<button id="btnMap">Map</button>
+<button id="btnSlice">Slice (0-2)</button>
+
+<script>
+    $(document).ready(function() {
+        $("#btnFirst").click(function() {
+            $(".item").first().addClass("highlight");
+        });
+
+        $("#btnLast").click(function() {
+            $(".item").last().addClass("highlight");
+        });
+
+        $("#btnEq").click(function() {
+            $(".item").eq(2).addClass("highlight");
+        });
+
+        $("#btnFilter").click(function() {
+            $(".item").filter(":contains('2')").addClass("highlight");
+        });
+
+        $("#btnNot").click(function() {
+            $(".item").not(":contains('3')").addClass("highlight");
+        });
+
+        $("#btnHas").click(function() {
+            $(".container").has(".item:contains('2')").addClass("highlight");
+        });
+
+        $("#btnIs").click(function() {
+            if ($(".item").first().is("#item1")) {
+                alert("첫 번째 아이템입니다.");
+            }
+        });
+
+        $("#btnMap").click(function() {
+            $(".item").each(function(index) {
+                const newText = $(this).text() + " (index: " + index + ")";
+                $(this).text(newText);
+                $(this).append("<span> - modified</span>");
+            });
+        });
+
+        $("#btnSlice").click(function() {
+            $(".item").slice(0, 2).addClass("highlight");
+        });
+    });
+</script>
+
+</body>
+</html>

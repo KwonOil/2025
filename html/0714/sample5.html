@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery Element Remove</title>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script>
+		$(function() {
+			$("button").on("click", function() {
+				// $(".content").remove(".first, .second");
+                $("#container").empty(); // 모든 .content 요소를 삭제
+			});
+		});
+	</script>
+</head>
+
+<body>
+
+	<h1>.remove(), .empty() 메소드</h1>
+	<div id="container">
+		<div class="content first">첫 번째 컨텐츠에요!</div>
+		<div class="content second">두 번째 컨텐츠에요!</div>
+		<div class="content third">세 번째 컨텐츠에요!</div>
+	</div>
+	<br>
+	<button>div 요소 삭제</button>
+	
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수학 문제 채점기</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .question { margin: 10px 0; }
+        .result { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>수학 문제 채점기</h1>
+    <form id="mathQuiz">
+        <div class="question">1. 2 + 3 = ? <input type="text" data-answer="5"></div>
+        <div class="question">2. 4 - 1 = ? <input type="text" data-answer="3"></div>
+        <div class="question">3. 6 × 2 = ? <input type="text" data-answer="12"></div>
+        <div class="question">4. 8 ÷ 4 = ? <input type="text" data-answer="2"></div>
+        <div class="question">5. 5 + 5 = ? <input type="text" data-answer="10"></div>
+        <div class="question">6. 9 - 6 = ? <input type="text" data-answer="3"></div>
+        <div class="question">7. 3 × 3 = ? <input type="text" data-answer="9"></div>
+        <div class="question">8. 10 ÷ 2 = ? <input type="text" data-answer="5"></div>
+        <div class="question">9. 7 + 2 = ? <input type="text" data-answer="9"></div>
+        <div class="question">10. 12 - 4 = ? <input type="text" data-answer="8"></div>
+        <button type="submit">채점하기</button>
+
+        <button type="button" id="scoring">채점하기2</button>
+
+    </form>
+    <div class="result"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#mathQuiz').on('submit', function(event) {
+                event.preventDefault();
+
+                let score = 0;
+                let totalQuestions = $(this).find('.question').length;
+
+                $(this).find('.question').each(function() {
+                    const userAnswer = $(this).find('input').val();
+                    
+                    const correctAnswer = $(this).find('input').data('answer');
+					
+                    //const correctAnswer = $(this).find('input').attr('data-answer');
+
+                    if(userAnswer == correctAnswer) {
+                        score++;
+                    }
+                });
+
+                $('.result').text(`정답 수: ${score} / ${totalQuestions}`);
+            });
+			
+			
+			
+			$('#scoring').on('click', function() {
+
+                let obj = $("#mathQuiz");
+				let score = 0;
+                let totalQuestions = obj.find('.question').length;
+
+                obj.find('.question').each(function() {
+                    const userAnswer = $(this).find('input').val();
+                    //const correctAnswer = $(this).find('input').data('answer');
+					const correctAnswer = $(this).find('input').attr('data-answer');
+                    if(userAnswer == correctAnswer) {
+                        score++;
+                    }
+                });
+
+                $('.result').text(`정답 수: ${score} / ${totalQuestions}`);
+            });
+        });
+    </script>
+</body>
+</html>

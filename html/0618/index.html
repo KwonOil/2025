@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>250618 HTML 학습</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <h1 style = "text-align : center;">
+            HTML 기본 학습
+        </h1>
+        
+        <!-- target 속성 -->
+        <!-- _self : 자기 탭에서 열림(기본 값), _blank : 새 탭에서 열림, iframe 이름 : iframe에서 열림 -->
+        <p style = "text-align : center; font-size : 30px">
+            <a href = '001.html'>
+                스타일 문서로 이동- self
+            </a>
+        </p>
+        <p style = "text-align : center; font-size : 30px">
+            <a href = '001.html' target="myframe">
+                iframe 스타일 - myframe
+            </a>
+        </p>
+        <p style = "text-align : center; font-size : 30px">
+            <a href = 'ads.pdf' target = "myframe">
+                광고 - myframe
+            </a>
+        </p>
+        <p style = "text-align : center; font-size : 30px">
+            <a href = 'https://www.w3schools.com/tags/ref_colornames.asp' target = "_blank">
+                색상표 - blank
+            </a>
+        </p>
+        <p style = "text-align : center; font-size : 30px">
+            <a href = 'https://www.youtube.com/embed/EMd6qTLrxl4' target = "myframe">
+                유튜브 - myframe
+            </a>
+        </p>
+        <p style = "text-align : center; font-size : 30px">
+            <a href = '002.html' target = "myframe">
+                이미지 - myframe
+            </a>
+        </p>
+        <iframe name = "myframe" style = "width:100%; height:500px"></iframe>
+        <!-- <iframe width=100% height="332" src="https://www.youtube.com/embed/EMd6qTLrxl4" title="바람과 함께 다시 돌아오리라" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+
+    </body>
+</html>

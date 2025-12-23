@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>대중교통 데이터 조회</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="number"] {
+            width: 80px;
+            padding: 5px;
+        }
+        button {
+            padding: 6px 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            border-collapse: collapse;
+            margin-top: 20px;
+            width: 60%;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 8px;
+        }
+    </style>
+    <script>
+        async function fetchData(event) {
+            event.preventDefault();  // 폼 기본 제출 막기
+
+            const u = document.getElementById("u").value;
+            const v = document.getElementById("v").value;
+
+            // API 호출
+            const response = await fetch(`/query?u=${u}&v=${v}`);
+            const data = await response.json();
+
+            const resultDiv = document.getElementById("result");
+
+            if (data.error || data.message) {
+                resultDiv.innerHTML = `<p>${data.error || data.message}</p>`;
+                return;
+            }
+
+            // 결과 테이블 생성
+            let table = "<table><tr><th>거리(km)</th><th>라인타입</th><th>시간대</th></tr>";
+            data.forEach(row => {
+                table += `<tr>
+                            <td>${row.distance}</td>
+                            <td>${row.line_type === 0 ? "버스" : "지하철"}</td>
+                            <td>${
+                                row.time_of_day === 0 ? "새벽" :
+                                row.time_of_day === 1 ? "오전" :
+                                row.time_of_day === 2 ? "오후" : "저녁"
+                            }</td>
+                        </tr>`;
+            });
+            table += "</table>";
+
+            resultDiv.innerHTML = table;
+        }
+    </script>
+</head>
+<body>
+    <h1>대중교통 데이터 조회</h1>
+    <form onsubmit="fetchData(event)">
+        <label for="u">출발 정류장 (u): </label>
+        <input type="number" id="u" name="u" required>
+        <label for="v">도착 정류장 (v): </label>
+        <input type="number" id="v" name="v" required>
+        <button type="submit">조회</button>
+    </form>
+
+    <div id="result"></div>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미디어 쿼리 예제</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            padding: 20px;
+            background-color: lightblue;
+            text-align: center;
+        }
+
+        /* 기본 스타일 */
+        h1 {
+            font-size: 2em;
+            color: darkblue;
+        }
+
+        /* 화면 크기가 1200px 이하일 때 적용 */
+        @media (max-width: 1200px) {
+            h1 {
+                font-size: 1.5em;
+                color: darkgreen;
+            }
+
+            .container {
+                background-color: lightcoral;
+            }
+        }
+
+        /* 화면 크기가 600px 이하일 때 적용 */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.2em;
+            }
+
+            .container {
+                background-color: rgb(147, 240, 128);
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>미디어 쿼리 예제</h1>
+        <p>화면 크기에 따라 스타일이 변경됩니다.</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>월별 출결 시스템 (주말 제외)</title>
+<style>
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    max-width: 720px;
+    margin: 30px auto;
+    background: #f9f9f9;
+    padding: 0 15px;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  #monthControl {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  button {
+    cursor: pointer;
+    border: none;
+    padding: 8px 14px;
+    font-size: 14px;
+    margin: 0 10px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+  }
+  #monthDisplay {
+    font-weight: bold;
+    font-size: 20px;
+    vertical-align: middle;
+  }
+  #dateRange {
+    margin: 15px 0;
+    text-align: center;
+  }
+  #dateRange input {
+    padding: 5px 8px;
+    font-size: 14px;
+    margin: 0 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 0 10px #ccc;
+  }
+  th, td {
+    border: 1px solid #bbb;
+    width: 14.28%;
+    vertical-align: top;
+    user-select: none;
+    padding: 8px 6px;
+    font-weight: 500;
+    min-height: 70px;
+  }
+  th {
+    background: #4a90e2;
+    color: white;
+    height: 45px;
+    text-align: center;
+  }
+  td.inactive {
+    background: #f0f0f0;
+    color: #999;
+    cursor: default;
+  }
+  .date-number {
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .btn-attendance {
+    flex: 1 1 40%;
+    min-width: 60px;
+    padding: 8px 0;
+    font-size: 14px;
+    border-radius: 5px;
+    color: white;
+  }
+  .btn-present { background-color: #4caf50; }   /* 초록 */
+  .btn-absent { background-color: #e53935; }    /* 빨강 */
+  .btn-late { background-color: #fbc02d; color:#333; }       /* 노랑 */
+  .btn-early { background-color: #ff9800; }    /* 주황 */
+  .btn-vacation { background-color: #2196f3; } /* 파랑 */
+  .btn-selected {
+    outline: 3px solid #333;
+    outline-offset: 2px;
+  }
+  #summary {
+    margin-top: 20px;
+    font-size: 17px;
+    color: #222;
+    text-align: center;
+    line-height: 1.6;
+    background: #e3f2fd;
+    padding: 14px 10px;
+    border-radius: 8px;
+  }
+  #notice {
+    font-size: 13px;
+    text-align: center;
+    color: #666;
+    margin-top: 10px;
+  }
+  @media (max-width: 480px) {
+    .btn-attendance {
+      flex: 1 1 100%;
+      min-width: unset;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>월별 출결 시스템 (주말 제외)</h1>
+
+<div id="monthControl">
+  <button id="prevMonthBtn">&lt; 이전</button>
+  <span id="monthDisplay"></span>
+  <button id="nextMonthBtn">다음 &gt;</button>
+</div>
+
+<div id="dateRange">
+  시작일: <input type="date" id="startDate" /> &nbsp;&nbsp;
+  종료일: <input type="date" id="endDate" />
+  <button id="applyRangeBtn">범위 적용</button>
+</div>
+
+<table id="calendar">
+  <thead>
+    <tr>
+      <th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- 날짜 셀 -->
+  </tbody>
+</table>
+
+<div id="summary">
+  <div>출석일: <span id="presentCount">0</span></div>
+  <div>결석일: <span id="absentCount">0</span></div>
+  <div>지각일: <span id="lateCount">0</span></div>
+  <div>조퇴일: <span id="earlyCount">0</span></div>
+  <div>휴가일: <span id="vacationCount">0</span> (누적 휴가: <span id="vacationTotal">0</span>일)</div>
+  <div>최종 결석 처리: <span id="finalAbsent">0</span>일</div>
+  <div id="notice">* 지각/조퇴가 각각 3일 이상일 경우 해당 횟수만큼 결석으로 자동 처리됩니다.<br>* 주말(토,일)은 출결 체크 대상에서 제외됩니다.</div>
+</div>
+
+<script>
+  const today = new Date();
+  let currentYear = today.getFullYear();
+  let currentMonth = today.getMonth();
+
+  const monthDisplay = document.getElementById("monthDisplay");
+  const calendarBody = document.querySelector("#calendar tbody");
+  const prevMonthBtn = document.getElementById("prevMonthBtn");
+  const nextMonthBtn = document.getElementById("nextMonthBtn");
+  const startDateInput = document.getElementById("startDate");
+  const endDateInput = document.getElementById("endDate");
+  const applyRangeBtn = document.getElementById("applyRangeBtn");
+
+  // summary elements
+  const presentCountEl = document.getElementById("presentCount");
+  const absentCountEl = document.getElementById("absentCount");
+  const lateCountEl = document.getElementById("lateCount");
+  const earlyCountEl = document.getElementById("earlyCount");
+  const vacationCountEl = document.getElementById("vacationCount");
+  const vacationTotalEl = document.getElementById("vacationTotal");
+  const finalAbsentEl = document.getElementById("finalAbsent");
+
+  // 출결 상태 종류
+  const STATUS = {
+    PRESENT: "present",
+    ABSENT: "absent",
+    LATE: "late",
+    EARLY: "early",
+    VACATION: "vacation",
+    NONE: "none"
+  };
+
+  // 저장키 - 월별로 저장
+  function getStorageKey(year, month) {
+    return `attendance_${year}_${month+1}`;
+  }
+
+  // 휴가 누적 저장키 (월별로 누적)
+  const VACATION_STORAGE_KEY = "vacationTotal";
+
+  // 출결 데이터 로드
+  let attendanceData = JSON.parse(localStorage.getItem(getStorageKey(currentYear, currentMonth))) || {};
+  let vacationTotal = parseInt(localStorage.getItem(VACATION_STORAGE_KEY)) || 0;
+
+  // 오늘 날짜 YYYY-MM-DD
+  function yyyymmdd(dateObj) {
+    const y = dateObj.getFullYear();
+    const m = String(dateObj.getMonth()+1).padStart(2,"0");
+    const d = String(dateObj.getDate()).padStart(2,"0");
+    return `${y}-${m}-${d}`;
+  }
+
+  // 해당 월의 일수
+  function daysInMonth(year, month) {
+    return new Date(year, month+1, 0).getDate();
+  }
+
+  // 휴가 누적: 매월 1일에 하루 추가 (오늘 날짜 기준)
+  function updateVacationTotal() {
+    const now = new Date();
+    const lastUpdate = localStorage.getItem("vacationLastUpdate");
+    const lastYearMonth = lastUpdate ? lastUpdate : "1970-00";
+
+    const currentYM = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
+
+    if(currentYM !== lastYearMonth) {
+      vacationTotal++;
+      localStorage.setItem(VACATION_STORAGE_KEY, vacationTotal);
+      localStorage.setItem("vacationLastUpdate", currentYM);
+    }
+  }
+
+  // 출결 데이터 저장
+  function saveAttendance() {
+    localStorage.setItem(getStorageKey(currentYear, currentMonth), JSON.stringify(attendanceData));
+    localStorage.setItem(VACATION_STORAGE_KEY, vacationTotal);
+  }
+
+  // 날짜 범위 체크 (주말 제외)
+  function inDateRange(dateStr) {
+    if(!startDateInput.value || !endDateInput.value) return true;
+    const d = new Date(dateStr);
+    const start = new Date(startDateInput.value);
+    const end = new Date(endDateInput.value);
+
+    // 주말 제외: 토요일(6), 일요일(0)
+    const dayOfWeek = d.getDay();
+    if(dayOfWeek === 0 || dayOfWeek === 6) return false;
+
+    return d >= start && d <= end;
+  }
+
+  // 달력 렌더링
+  function renderCalendar(year, month) {
+    monthDisplay.textContent = `${year}년 ${month + 1}월`;
+    calendarBody.innerHTML = "";
+
+    const firstDay = new Date(year, month, 1);
+    const firstWeekDay = firstDay.getDay();
+    const totalDays = daysInMonth(year, month);
+
+    let date = 1;
+    for(let row=0; row<6; row++) {
+      const tr = document.createElement("tr");
+      for(let day=0; day<7; day++) {
+        const td = document.createElement("td");
+
+        // 날짜가 아직 시작 전(빈칸) 인 경우
+        if(row === 0 && day < firstWeekDay) {
+          td.classList.add("inactive");
+          td.textContent = "";
+        }
+        // 날짜가 월의 마지막 이후 빈칸 처리
+        else if(date > totalDays) {
+          td.classList.add("inactive");
+          td.textContent = "";
+        } else {
+          const dateKey = `${year}-${String(month+1).padStart(2,"0")}-${String(date).padStart(2,"0")}`;
+
+          // 날짜 숫자 표시
+          const dateDiv = document.createElement("div");
+          dateDiv.className = "date-number";
+          dateDiv.textContent = date;
+          td.appendChild(dateDiv);
+
+          // 주말(토,일) 인 경우
+          const dayOfWeek = new Date(year, month, date).getDay();
+          if(dayOfWeek === 0 || dayOfWeek === 6) {
+            // 주말이면 회색 비활성화 처리
+            td.classList.add("inactive");
+            td.style.cursor = "default";
+            date++;
+            tr.appendChild(td);
+            continue; // 출결 버튼 안 만듦
+          }
+
+          // 날짜 범위 확인 (시작일 ~ 종료일)
+          if(!inDateRange(dateKey)) {
+            td.classList.add("inactive");
+            td.style.cursor = "default";
+            date++;
+            tr.appendChild(td);
+            continue;
+          }
+
+          // 출결 상태 버튼 그룹 생성
+          const btnGroup = document.createElement("div");
+          btnGroup.className = "btn-group";
+
+          // 출결 상태별 버튼
+          const states = [
+            {name:"출석", value: STATUS.PRESENT, class:"btn-present"},
+            {name:"결석", value: STATUS.ABSENT, class:"btn-absent"},
+            {name:"지각", value: STATUS.LATE, class:"btn-late"},
+            {name:"조퇴", value: STATUS.EARLY, class:"btn-early"},
+            {name:"휴가", value: STATUS.VACATION, class:"btn-vacation"}
+          ];
+
+          // 버튼 생성 함수
+          function createBtn(state) {
+            const btn = document.createElement("button");
+            btn.textContent = state.name;
+            btn.className = `btn-attendance ${state.class}`;
+            btn.addEventListener("click", () => {
+              attendanceData[dateKey] = state.value;
+              updateButtonStates();
+              updateSummary();
+              saveAttendance();
+            });
+            return btn;
+          }
+
+          const buttons = states.map(createBtn);
+          buttons.forEach(b => btnGroup.appendChild(b));
+          td.appendChild(btnGroup);
+
+          // 선택된 상태 버튼 표시
+          function updateButtonStates() {
+            buttons.forEach(b => b.classList.remove("btn-selected"));
+            const val = attendanceData[dateKey];
+            if(!val) return;
+            buttons.forEach(b => {
+              if(b.textContent === statusName(val)) b.classList.add("btn-selected");
+            });
+          }
+          updateButtonStates();
+
+          date++;
+        }
+        tr.appendChild(td);
+      }
+      calendarBody.appendChild(tr);
+      if(date > totalDays) break;
+    }
+    updateSummary();
+  }
+
+  // 상태명 변환 함수
+  function statusName(val) {
+    switch(val) {
+      case STATUS.PRESENT: return "출석";
+      case STATUS.ABSENT: return "결석";
+      case STATUS.LATE: return "지각";
+      case STATUS.EARLY: return "조퇴";
+      case STATUS.VACATION: return "휴가";
+      default: return "";
+    }
+  }
+
+  // 출결 요약 업데이트 (주말 제외)
+  function updateSummary() {
+    let presentCount = 0;
+    let absentCount = 0;
+    let lateCount = 0;
+    let earlyCount = 0;
+    let vacationCount = 0;
+
+    const totalDays = daysInMonth(currentYear, currentMonth);
+    for(let day=1; day<=totalDays; day++) {
+      const dateObj = new Date(currentYear, currentMonth, day);
+      const dayOfWeek = dateObj.getDay();
+      if(dayOfWeek === 0 || dayOfWeek === 6) continue; // 주말 제외
+
+      const key = `${currentYear}-${String(currentMonth+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
+      const status = attendanceData[key];
+      if(status === STATUS.PRESENT) presentCount++;
+      else if(status === STATUS.ABSENT) absentCount++;
+      else if(status === STATUS.LATE) lateCount++;
+      else if(status === STATUS.EARLY) earlyCount++;
+      else if(status === STATUS.VACATION) vacationCount++;
+    }
+
+    // 지각 3일 이상 → 결석 처리 횟수
+    const lateAbsent = Math.floor(lateCount / 3);
+    const earlyAbsent = Math.floor(earlyCount / 3);
+    // 최종 결석 = 기존 결석 + 지각결석 + 조퇴결석
+    const finalAbsent = absentCount + lateAbsent + earlyAbsent;
+
+    presentCountEl.textContent = presentCount;
+    absentCountEl.textContent = absentCount;
+    lateCountEl.textContent = lateCount;
+    earlyCountEl.textContent = earlyCount;
+    vacationCountEl.textContent = vacationCount;
+    vacationTotalEl.textContent = vacationTotal;
+    finalAbsentEl.textContent = finalAbsent;
+  }
+
+  // 월 변경 버튼 이벤트
+  prevMonthBtn.addEventListener("click", () => {
+    currentMonth--;
+    if(currentMonth < 0) {
+      currentMonth = 11;
+      currentYear--;
+    }
+    loadAttendanceData();
+    renderCalendar(currentYear, currentMonth);
+  });
+
+  nextMonthBtn.addEventListener("click", () => {
+    currentMonth++;
+    if(currentMonth > 11) {
+      currentMonth = 0;
+      currentYear++;
+    }
+    loadAttendanceData();
+    renderCalendar(currentYear, currentMonth);
+  });
+
+  // 범위 적용 버튼 이벤트
+  applyRangeBtn.addEventListener("click", () => {
+    if(!startDateInput.value || !endDateInput.value) {
+      alert("시작일과 종료일을 모두 지정하세요.");
+      return;
+    }
+    const s = new Date(startDateInput.value);
+    const e = new Date(endDateInput.value);
+    if(s > e) {
+      alert("시작일이 종료일보다 늦을 수 없습니다.");
+      return;
+    }
+    renderCalendar(currentYear, currentMonth);
+  });
+
+  // 데이터 불러오기
+  function loadAttendanceData() {
+    attendanceData = JSON.parse(localStorage.getItem(getStorageKey(currentYear, currentMonth))) || {};
+  }
+
+  // 휴가 누적 갱신
+  function updateVacationTotal() {
+    const now = new Date();
+    const lastUpdate = localStorage.getItem("vacationLastUpdate");
+    const lastYM = lastUpdate || "1970-00";
+
+    const currentYM = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}`;
+    if(currentYM !== lastYM) {
+      vacationTotal++;
+      localStorage.setItem(VACATION_STORAGE_KEY, vacationTotal);
+      localStorage.setItem("vacationLastUpdate", currentYM);
+    }
+  }
+
+  // 시작일 종료일 기본값 세팅
+  function initDateRange() {
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const lastDay = new Date(currentYear, currentMonth, daysInMonth(currentYear, currentMonth));
+    startDateInput.value = yyyymmdd(firstDay);
+    endDateInput.value = yyyymmdd(lastDay);
+  }
+
+  // 초기 실행
+  updateVacationTotal();
+  loadAttendanceData();
+  initDateRange();
+  renderCalendar(currentYear, currentMonth);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택자 예제</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        input { margin: 5px; }
+    </style>
+</head>
+<body>
+
+    <h1>폼 요소 선택자 예제</h1>
+
+    <input type="button" value="버튼"><br>
+    <input type="checkbox" id="check1" value = "눈을 뜹시다!">
+    <input type="file">
+    <input type="image" src="https://media.discordapp.net/attachments/1383744619724017728/1394184021138735164/submit.png?ex=6875e28d&is=6874910d&hm=ada7b52b9169a946d3117309d2646ddca709f470d6c290444221b49bd962d294&=&format=webp&quality=lossless&width=725&height=221" height="25" alt="Submit">
+    <input type="password">
+    <input type="radio" name="options" id="option1">
+    <input type="reset" value="리셋">
+    <input type="submit" value="제출">
+    <input type="text" placeholder="텍스트 입력">
+    <textarea placeholder="텍스트 영역"></textarea>
+    <select>
+        <option selected>옵션 1</option>
+        <option>옵션 2</option>
+    </select>
+    
+    <script>
+        $(document).ready(function() {
+            // :button 예제
+            $(':button').click(function() {
+                alert('버튼 클릭됨!');
+            });
+
+            // :checkbox 예제
+            $('#check1').change(function() {
+                if ($(this).is(':checked')) {
+                    // alert('체크박스가 선택됨!');
+                    $(this).val("졸려요~");
+                    alert($(this).val());
+                    
+                }
+            });
+
+            // :checked 예제
+            $(':checked').click(function() {
+                alert('체크된 요소 클릭됨!');
+            });
+
+            // :selected 예제
+            $('select').change(function() {
+                alert('선택된 옵션: ' + $(this).find(':selected').text());
+            });
+
+            // :focus 예제
+            $('input[type="text"]').focus(function() {
+                $(this).css('background-color', '#e0ffe0');
+            }).blur(function() {
+                $(this).css('background-color', '');
+            });
+
+            // :enabled 예제
+            $('input:enabled').on('focus', function() {
+                $(this).css('border', '2px solid green');
+            });
+        });
+    </script>
+</body>
+</html>

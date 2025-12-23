@@ -1,0 +1,19 @@
+<dl class="row">
+  <dt class="col-sm-3">ID</dt>
+  <dd class="col-sm-9">{{ emp.id }}</dd>
+
+  <dt class="col-sm-3">이름</dt>
+  <dd class="col-sm-9">{{ emp.name }}</dd>
+
+  <dt class="col-sm-3">이메일</dt>
+  <dd class="col-sm-9">{{ emp.email }}</dd>
+
+  <dt class="col-sm-3">부서</dt>
+  <dd class="col-sm-9">{{ emp.department }}</dd>
+
+  <dt class="col-sm-3">연봉</dt>
+  <dd class="col-sm-9">{{ '{:,.0f}'.format(emp.salary) }}원</dd>
+
+  <dt class="col-sm-3">입사일</dt>
+  <dd class="col-sm-9">{{ emp.hire_date.strftime('%Y-%m-%d') }}</dd>
+</dl>

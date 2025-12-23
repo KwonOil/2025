@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID Data Table</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>COVID Data</h1>
+<table id="covidTable" class="display">
+    <thead>
+        <tr>
+            <th>날짜</th>
+            <th>누적확진자수</th>
+            <th>누적격리해제수</th>
+            <th>전일대비증감</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>
+
+<script>
+$(document).ready(function() {
+    const apiUrl = 'http://apis.data.go.kr/1352000/ODMS_COVID_04/callCovid04Api';
+
+    $.ajax({
+        url: apiUrl,
+        method: 'GET',
+        data: {
+            serviceKey: 'YOUR_SERVICE_KEY_HERE', 
+            pageNo: 1,
+            numOfRows: 100,
+            apiType: 'JSON',
+            startCreateDt: '20200101',
+            gubun: '서울'
+        },
+        dataType: 'json',
+        success: function(data) {
+            const rows = [];
+
+            data.items.forEach(function(info) {
+                const stdDay = info.stdDay;
+                const defCnt = info.defCnt;
+                const isolClearCnt = info.isolClearCnt;
+                const incDec = info.incDec;
+
+                rows.push([stdDay, defCnt, isolClearCnt, incDec]);
+            });
+
+            console.log(rows);
+
+            $('#covidTable').DataTable({
+                data: rows,
+                columns: [
+                    { title: "날짜" },
+                    { title: "누적확진자수" },
+                    { title: "누적격리해제수" },
+                    { title: "전일대비증감" }
+                ]
+            });
+        },
+        error: function() {
+            alert('데이터를 가져오는 데 실패했습니다.');
+        }
+    });
+});
+</script>
+
+</body>
+</html>

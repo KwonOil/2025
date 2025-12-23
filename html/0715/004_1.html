@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML문서</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="../myfunc.js"></script>
+    <style>
+        .BFont{
+            color : blue;
+            font-weight : bold;
+        }
+    </style>
+    <script>
+        $(function(){
+            $(".btn").click(function(){
+                $("li").each(function(){
+                    $(this).toggleClass("BFont");
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <ul>
+        <li>첫 번째 아이템이에요!</li>
+        <li>두 번째 아이템이에요!</li>
+        <li>세 번째 아이템이에요!</li>
+    </ul>
+    <button class = "btn">아이템 변경</button>
+</body>
+</html>

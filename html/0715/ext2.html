@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수학 문제 객관식 채점기</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .question { margin: 10px 0; }
+        .result { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>수학 문제 객관식 채점기</h1>
+    <form id="mathQuiz">
+        <div class="question">
+            1. 2 + 2 = ?
+            <label><input type="radio" name="q1" value="3"> 3</label>
+            <label><input type="radio" name="q1" value="4" data-answer="true"> 4</label>
+            <label><input type="radio" name="q1" value="5"> 5</label>
+            <label><input type="radio" name="q1" value="6"> 6</label>
+        </div>
+        <div class="question">
+            2. 5 - 3 = ?
+            <label><input type="radio" name="q2" value="1"> 1</label>
+            <label><input type="radio" name="q2" value="2" data-answer="true"> 2</label>
+            <label><input type="radio" name="q2" value="3"> 3</label>
+            <label><input type="radio" name="q2" value="4"> 4</label>
+        </div>
+        <div class="question">
+            3. 3 × 3 = ?
+            <label><input type="radio" name="q3" value="6"> 6</label>
+            <label><input type="radio" name="q3" value="7"> 7</label>
+            <label><input type="radio" name="q3" value="8"> 8</label>
+            <label><input type="radio" name="q3" value="9" data-answer="true"> 9</label>
+        </div>
+        <div class="question">
+            4. 12 ÷ 4 = ?
+            <label><input type="radio" name="q4" value="2"> 2</label>
+            <label><input type="radio" name="q4" value="3" data-answer="true"> 3</label>
+            <label><input type="radio" name="q4" value="4"> 4</label>
+            <label><input type="radio" name="q4" value="5"> 5</label>
+        </div>
+        <div class="question">
+            5. 10 + 5 = ?
+            <label><input type="radio" name="q5" value="14"> 14</label>
+            <label><input type="radio" name="q5" value="15" data-answer="true"> 15</label>
+            <label><input type="radio" name="q5" value="16"> 16</label>
+            <label><input type="radio" name="q5" value="17"> 17</label>
+        </div>
+        <button type="submit">채점하기</button>
+    </form>
+    <div class="result"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#mathQuiz').on('submit', function(event) {
+                event.preventDefault();
+                
+				let score = 0;
+                let totalQuestions = $(this).find('.question').length;
+
+                $(this).find('.question').each(function() {
+                    
+					const selectedAnswer = $(this).find('input[type="radio"]:checked');
+					if(selectedAnswer.data('answer')) {
+                        score++;
+                    }
+					
+                });
+
+                $('.result').text(`정답 수: ${score} / ${totalQuestions}`);
+            });
+        });
+    </script>
+</body>
+</html>

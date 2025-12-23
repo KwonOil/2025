@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>letter-spacing</title>
+        <style>
+        p {
+            font-size:80px;
+        }
+        /* Do it! 글자 간격 조절하기 */
+        .spacing1{
+            letter-spacing : 10px;/* == 0.2em */
+        }
+        .spacing2{
+            letter-spacing : 0.5em;
+            /* 1em은 해당 폰트의 크기 */
+        }
+        .word-spacing{
+            word-spacing : 50px;
+        }
+        </style>
+    </head>
+    <body>
+        <p>CSS</p>
+        <p class="spacing1">CSS study</p>
+        <p class="spacing2">CSS study</p>
+        <p class="word-spacing">CSS study</p>
+    </body>
+</html>

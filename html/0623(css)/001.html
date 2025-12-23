@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <!-- 제목 -->
+        <h1 style = "text-align : center;">제목</h1>
+
+        <!-- 이미지 -->
+        <img src="https://picsum.photos/300/200" alt = "랜덤 이미지"><br>
+
+        <!-- 목록 만들기 -->
+        <ol>
+            <li>-</li>
+        </ol>
+        <ul>
+            <li>-</li>
+        </ul>
+
+        <dl>
+            <dt>HTML</dt>
+            <dd>HyperText Markup Language</dd>
+        </dl>
+
+        <!-- 테이블 만들기 -->
+        <table border = "1">
+            <tr>
+                <th>이름</th>
+                <th>나이</th>
+                <th>직업</th>
+            </tr>
+            <tr>
+                <td>홍길동</td>
+                <td>38</td>
+                <td>개발자</td>
+            </tr>
+        </table>
+        <table border = "1">
+            <tr>
+                <th rowspan = "2">이름</th>
+                <th colspan = "3">성적</th>
+            </tr>
+            <tr>
+                <th>수학</th>
+                <th>영어</th>
+                <th>국어</th>
+            </tr>
+            <tr>
+                <td>홍길동</td>
+                <td>90</td>
+                <td>85</td>
+                <td>96</td>
+            </tr>
+            <tr>
+                <td>김철수</td>
+                <td>95</td>
+                <td>93</td>
+                <td>90</td>
+            </tr>
+        </table>
+        <hr>
+
+        <!-- 폼 만들기 -->
+        <form action = "http://192.168.0.168/0620/register.php" method = "get">
+            이름 : <input type = "text" name = "name" autocomplete="off"><br>
+            이메일 : <input type = "email" name = "email" autocomplete="off"><br>
+            메시지 : <textarea id = "message" name = "message" rows = "4" cols = "50" autocomplete="off"></textarea><br>
+            <input type = "submit" value = "제출">
+
+            <!--
+            <form> 안에 있을 때
+            <button>은 submit기능이 내장되어 있다
+            <input type = "button">은 submit이 되지는 않는다 -->
+            <button onclick = "alert('제출되었습니다')">보내기1</button>
+            <input type = "button" value = "보내기2" onclick = "alert('제출되었을까요?')">
+            <button onclick = "if(confirm('문서로 이동하시겠습니까?')){ location.href = '002.html';} else {location.href = 'https://naver.com';}">문서 이동 선택</button>
+
+            <input type = "reset" value = "초기화">
+        </form>
+        
+        <!-- 버튼 -->
+        <input type = "button" value = "클릭하세요" onclick = "alert('버튼이 클릭되었습니다1!')"><br>
+        <button onclick = "alert('버튼이 클릭되었습니다2!')">클릭하세요</button><br>
+
+    </body>
+</html>

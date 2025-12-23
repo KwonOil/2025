@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>250704 JAVASCRIPT</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border: 1px solid #333;
+        }
+        td {
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tbody id = "gugu">
+
+        </tbody>
+    </table>
+    <script>
+    let gugu = document.querySelector("#gugu");
+    
+    let guguString = '';
+    
+    var start = 2;
+    var end = 9;
+    var div = 4;
+    var cnt = Math.ceil((end-start+1) / 4);
+    
+    for(let k=1;k<=cnt;k++){
+        
+        let s = k * div - div + start;
+        
+        for(let i = 1; i <= 9; i++){
+            guguString += "<tr>";
+            for(let j = s; j <= s + div - 1; j++){
+                guguString +=`<td>${j}</td><td>x</td><td>${i}</td><td>=</td><td class = "answer" data-i="${i}" data-j="${j}">??</td>`;
+            }
+            guguString += "</tr>";
+        }
+        guguString += "<td></td>";
+    
+    }
+    
+    /*
+    for(let i = 1; i <= 9; i++){
+        guguString += "<tr>";
+        for(let j = 6; j <= 9; j++){
+            guguString += `<td>${j}</td><td>x</td><td>${i}</td><td>=</td><td class = "answer" data-i="${i}" data-j="${j}">??</td>`;
+        }
+        guguString += "</tr>";
+    }*/    
+    
+    gugu.innerHTML = guguString;
+
+    answers = gugu.querySelectorAll(".answer");
+    answers.forEach((a)=>{
+        a.addEventListener('click',()=>{
+            let i = parseInt(a.dataset.i);
+            let j = parseInt(a.dataset.j);
+            a.innerHTML = `${i*j}`;
+        })
+    });
+    </script>
+</body>
+</html>

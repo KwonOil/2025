@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>날씨 정보 앱</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../myfunc.js"></script>
+    <style>
+    body {
+        font-family: 'Segoe UI', 'Arial', sans-serif;
+        background: linear-gradient(to right, #e0f7fa, #fffde7);
+        color: #333;
+        margin: 0;
+        padding: 40px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        color: #006064;
+    }
+
+    select, button {
+        font-size: 1em;
+        padding: 10px 15px;
+        margin: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+
+    button {
+        background-color: #0288d1;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #0277bd;
+    }
+
+    #weather {
+        margin-top: 30px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        padding: 20px;
+        text-align: left;
+        text-align: center;
+    }
+
+    #weather p {
+        margin: 12px 0;
+        font-size: 1.1em;
+    }
+
+    #weather img {
+        display: block;
+        margin: 0 auto;
+        width: 100px;
+        height: 100px;
+    }
+
+
+
+    body.clear {
+    background: linear-gradient(to right, #56ccf2, #2f80ed); /* 맑음 - 파란 하늘 */
+    }
+
+    body.clouds {
+        background: linear-gradient(to right, #bdc3c7, #2c3e50); /* 흐림 */
+    }
+
+    body.rain {
+        background: linear-gradient(to right, #4b79a1, #283e51); /* 비 */
+    }
+
+    body.snow {
+        background: linear-gradient(to right, #e6dada, #274046); /* 눈 */
+    }
+
+    body.thunderstorm {
+        background: linear-gradient(to right, #141e30, #243b55); /* 천둥번개 */
+    }
+
+    body.mist, body.fog {
+        background: linear-gradient(to right, #606c88, #3f4c6b); /* 안개 */
+    }
+</style>
+
+</head>
+<body>
+    <h1>날씨 정보</h1>
+    <select id="city">
+        <option value="Seoul">서울</option>
+        <option value="Busan">부산</option>
+        <option value="Incheon">인천</option>
+        <option value="Daegu">대구</option>
+        <option value="Gwangju">광주</option>
+        <option value="Daejeon">대전</option>
+        <option value="Tokyo">도쿄</option>
+        <option value="Beijing">베이징</option>
+        <option value="Bangkok">방콕</option>
+        <option value="Singapore">싱가포르</option>
+        <option value="New York">뉴욕</option>
+        <option value="Los Angeles">로스앤젤레스</option>
+        <option value="London">런던</option>
+        <option value="Paris">파리</option>
+        <option value="Berlin">베를린</option>
+        <option value="Rome">로마</option>
+        <option value="Madrid">마드리드</option>
+        <option value="Moscow">모스크바</option>
+        <option value="Cairo">카이로</option>
+        <option value="Sydney">시드니</option>
+        <option value="Toronto">토론토</option>
+        <option value="Montreal">몬트리올</option>
+        <option value="Mexico City">멕시코시티</option>
+        <option value="São Paulo">상파울루</option>
+        <option value="Istanbul">이스탄불</option>
+        <option value="Chicago">시카고</option>
+        <option value="San Francisco">샌프란시스코</option>
+        <option value="Vancouver">밴쿠버</option>
+        <option value="Buenos Aires">부에노스아이레스</option>
+        <option value="Rio de Janeiro">리우데자네이루</option>
+        <option value="Cape Town">케이프타운</option>
+        <option value="Johannesburg">요하네스버그</option>
+        <option value="Nairobi">나이로비</option>
+        <option value="Dubai">두바이</option>
+        <option value="Abu Dhabi">아부다비</option>
+        <option value="Riyadh">리야드</option>
+        <option value="Tehran">테헤란</option>
+        <option value="Delhi">델리</option>
+        <option value="Mumbai">뭄바이</option>
+        <option value="Karachi">카라치</option>
+        <option value="Jakarta">자카르타</option>
+        <option value="Hanoi">하노이</option>
+        <option value="Manila">마닐라</option>
+        <option value="Kuala Lumpur">쿠알라룸푸르</option>
+        <option value="Auckland">오클랜드</option>
+        <option value="Wellington">웰링턴</option>
+        <option value="Honolulu">호놀룰루</option>
+        <option value="Anchorage">앵커리지</option>
+        <option value="Oslo">오슬로</option>
+        <option value="Copenhagen">코펜하겐</option>
+        <option value="Stockholm">스톡홀름</option>
+        <option value="Helsinki">헬싱키</option>
+        <option value="Reykjavik">레이캬비크</option>
+        <option value="Zurich">취리히</option>
+        <option value="Vienna">빈</option>
+        <option value="Seongnam-si">기숙사</option>
+
+
+    </select>
+    <button id="getWeather">날씨 조회</button>
+    <div id="weather"></div>
+    <script>
+        $('#getWeather').on('click',function(){
+            const city = $('#city').val();
+            const latlon = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=5&appid=${apiKey}`;
+            $.get(latlon,function(info){
+                cprint(info[0].lat, info[0].lon);
+                const url = `https://api.openweathermap.org/data/2.5/weather?lat=${info[0].lat}&lon=${info[0].lon}&appid=${apiKey}&lang=kr`;
+                $.get(url, function(winfo){
+                    let name = winfo.name;
+                    let temp = (winfo.main.temp - 273.15).toFixed(2);
+                    let humidity = winfo.main.humidity;
+                    let icon = winfo.weather[0].icon;
+                    let iconURL = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+                    let desc = winfo.weather[0].description;
+                    let windSpeed = winfo.wind.speed;
+                    let weatherHTML = `<h1>${name}</h1><p>도시 온도 : ${temp}ºC</p><p>도시 날씨 : ${desc}<br><img src="${iconURL}" alt="${desc} 아이콘"></p><p>도시 습도 : ${humidity}%</p><p>바람 속도 : ${windSpeed}m/s</p>`;
+                    cprint(winfo);
+                    cprint("도시 이름 : ",name);
+                    cprint("도시 온도 : ",temp);
+                    cprint("도시 날씨 : ",desc);
+                    cprint("도시 아이콘 : ",icon);
+                    $("#weather").html(weatherHTML);
+
+
+
+
+                    let weatherMain = winfo.weather[0].main.toLowerCase();
+                    $('body').removeClass().addClass(weatherMain);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

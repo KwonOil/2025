@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}지하철 지연 예측{% endblock %}
+{% block content %}
+<section class="card">
+  <form method="post" id="predict-form">
+    <div class="grid" style="grid-template-columns: repeat(4, 1fr);">
+      <!-- 호선 -->
+    <label>
+    호선
+    <select name="line" id="line" required>
+        {% for x in lines %}
+        <option value="{{x}}" {{ 'selected' if x == form_defaults.line else '' }}>{{x}}</option>
+        {% endfor %}
+    </select>
+    </label>
+
+    <!-- 방향 -->
+    <label>
+    방향
+    <select name="direction" id="direction" required>
+        {% for d in directions %}
+        <option value="{{d}}" {{ 'selected' if d == form_defaults.direction else '' }}>{{d}}</option>
+        {% endfor %}
+    </select>
+    </label>
+
+      <!-- 시간 -->
+      <label>
+        시간 (30분 단위)
+        <select name="time" id="time" required>
+          {% for t in times %}
+          <option value="{{t}}" {{ 'selected' if t == form_defaults.time else '' }}>{{t}}</option>
+          {% endfor %}
+        </select>
+      </label>
+
+      <!-- 날짜 -->
+      <label>
+        날짜
+        <input type="date" name="date" value="{{ form_defaults.date }}">
+        <small class="hint">비워두면 최신 데이터로 예측합니다.</small>
+      </label>
+    </div>
+
+    <button type="submit">예측하기</button>
+  </form>
+</section>
+
+{% if error_msg %}
+<section class="card error">
+  <strong>오류:</strong> {{ error_msg }}
+</section>
+{% endif %}
+
+{% if result %}
+<section class="card">
+  <h2>예측 결과</h2>
+  {% if result.synthetic %}
+  <p class="hint">※ 미래 날짜: 과거 패턴 기반 합성 피처로 예측했습니다.</p>
+  {% endif %}
+  <ul class="result">
+    <li><b>호선</b>: {{ result.line }}</li>
+    <li><b>방향</b>: {{ result.direction }}</li>
+    <li><b>날짜</b>: {{ result.date }}</li>
+    <li><b>시간</b>: {{ result.time }}</li>
+    <li><b>지연 확률</b>: {{ (result.probability_delay * 100) | round(1) }}%</li>
+    <li><b>예상 지연 분</b>: {{ result.expected_delay_min }} 분</li>
+    <li><b>최종 판정</b>:
+      <span class="{{ 'bad' if result.final_status=='지연' else 'good' }}">{{ result.final_status }}</span>
+      <small>(임계값: {{ threshold }}분)</small>
+    </li>
+  </ul>
+</section>
+{% endif %}
+
+<script>
+  const form   = document.getElementById('predict-form');
+  const lineSel= document.getElementById('line');
+  const dirSel = document.getElementById('direction');
+  const timeSel= document.getElementById('time');
+
+  async function refreshDirections() {
+    const line = lineSel.value;
+    dirSel.innerHTML = '<option value="" disabled selected>불러오는 중...</option>';
+    dirSel.setAttribute('disabled', 'disabled');
+    try {
+      const res = await fetch(`/api/directions?line=${encodeURIComponent(line)}`);
+      const data = await res.json();
+      const dirs = data.directions || [];
+      dirSel.innerHTML = '';
+      dirs.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d; opt.textContent = d;
+        dirSel.appendChild(opt);
+      });
+      if (dirs.length) dirSel.value = dirs[0];
+    } catch (e) {
+      dirSel.innerHTML = '<option value="" disabled>불러오기 실패</option>';
+      console.error(e);
+    } finally {
+      dirSel.removeAttribute('disabled');
+    }
+  }
+
+  lineSel.addEventListener('change', refreshDirections);
+
+  // 제출 직전 클라이언트 검증
+  form.addEventListener('submit', (e) => {
+    if (!lineSel.value || !dirSel.value || !timeSel.value) {
+      e.preventDefault();
+      alert('호선/방향/시간을 모두 선택해 주세요.');
+      return false;
+    }
+  });
+</script>
+{% endblock %}

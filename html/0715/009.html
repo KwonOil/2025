@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트 메서드 </title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #myElement {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            margin-bottom: 20px;
+            text-align: center;
+            line-height: 100px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+
+<div id="myElement">Click Me</div>
+<button id="addOn">Add on() Event</button>
+<button id="addOne">Add one() Event</button>
+<button id="removeEvent">Remove all Events</button>
+
+
+<div id="info"></div>
+
+
+<script>
+    $(function() {
+        // .on() 메서드로 클릭 이벤트 추가
+        $("#addOn").click(function() {
+            $("#myElement").on("click", function() {
+                $("#info").text("on() Clicked!");
+            });
+        });
+
+
+        // .one() 메서드로 클릭 이벤트 추가 (1회만 실행)
+        $("#addOne").click(function() {
+            $("#myElement").one("click", function() {
+                $("#info").text("one() Clicked!");
+            });
+        });
+
+
+        // .off() 메서드로 이벤트 제거
+        $("#removeEvent").click(function() {
+            $("#myElement").off("click");
+            $("#info").text("All Click Events Removed.");
+        });
+    });
+</script>
+
+
+</body>
+</html>

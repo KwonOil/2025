@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS, 속성 메소드</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #myElement {
+            width: 100px;
+            height: 100px;
+            background-color: lightblue;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="myElement">My Element</div>
+<button id="setColor">Set Color</button>
+<button id="getAttr">Get Attribute</button>
+<button id="setAttr">Set Attribute</button>
+<button id="removeAttr">Remove Attribute</button>
+<button id="setProp">Set Property</button>
+<button id="removeProp">Remove Property</button>
+
+<div id="info"></div>
+
+<script>
+    $(function() {
+        $("#setColor").click(function() {
+            $("#myElement").css("background-color", "yellow");
+        });
+
+        $("#getAttr").click(function() {
+            var attrValue = $("#myElement").attr("id");
+            $("#info").text("ID Attribute: " + attrValue);
+        }); 
+
+        $("#setAttr").click(function() {
+            $("#myElement").attr("data-custom", "customValue");
+            $("#info").text("Custom Attribute Set.");
+        });
+
+        $("#removeAttr").click(function() {
+            $("#myElement").removeAttr("data-custom");
+            $("#info").text("Custom Attribute Removed.");
+        });
+
+        $("#setProp").click(function() {
+            $("#setColor").prop("disabled", true);
+            $("#info").text("Element Disabled.");
+        });
+
+        $("#removeProp").click(function() {
+            $("#setColor").prop("disabled", false);
+            $("#info").text("Element Enabled.");
+        });
+    });
+</script>
+
+</body>
+</html>

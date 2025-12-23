@@ -1,0 +1,40 @@
+<header>
+    <div class="wrapper">
+        <nav>
+            <ul id="top_nav">
+                <li><a href="Support.html">Support</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li class="end"><a href="#">Sitemap</a></li>
+            </ul>
+        </nav>
+        <span class="date">Monday, June 6, 2011  &nbsp; &nbsp; 17:19</span>
+    </div>
+    <div class="wrapper">
+        <h1><a href="index.html" id="logo">Pro Soft</a></h1>
+        <nav>
+            <ul id="menu">
+                <li {% if template_name=='index.html' %} id="menu_active"{% endif %}><a href="index.html"><span><span>Home</span></span></a></li>
+                <li {% if template_name=='Features.html' %} id="menu_active"{% endif %}><a href="Features.html"><span><span>Features</span></span></a></li>
+                <li {% if template_name=='Support.html' %} id="menu_active"{% endif %} class="nav3"><a href="Support.html"><span><span>Support</span></span></a></li>
+                <li {% if template_name=='Downloads.html' %} id="menu_active"{% endif %} class="nav4"><a href="Downloads.html"><span><span>Downloads</span></span></a></li>
+                <li {% if template_name=='Contacts.html' %} id="menu_active"{% endif %} class="nav5"><a href="Contacts.html"><span><span>Contacts</span></span></a></li>
+            </ul>
+        </nav>
+    </div>
+    {% if request.endpoint=='home' %}
+    <div class="wrapper">
+        <div class="text">
+            <span class="tittle">Best<span>Professional Soft</span></span>
+            <p>Sed ut perspiciatis unde omnis natius<span>error volup accusantium doloremque</span><span>laudantium, totaeim aperiam, eaque</span><span>ipsaquae ab illo inventore.</span></p>
+            <a href="#" class="button1">More Info</a>
+        </div>
+        <div id="gallery">
+            <ul id="myRoundabout">
+                <li><img src="images/img1.png" alt=""></li>
+                <li><img src="images/img2.png" alt=""></li>
+                <li><img src="images/img3.png" alt=""></li>
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+</header>

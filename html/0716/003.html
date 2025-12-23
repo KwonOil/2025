@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML문서</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function(){
+            
+            function fetchUsers(name) {
+                let nn = name?"/"+name:"";
+				
+				$.ajax({
+                    url: 'http://192.168.0.169/api.php/users' + nn,
+                    method: 'GET',
+                    success: function(data) {
+                        displayUsers(data); // 사용자 표시
+                    }
+                });
+            }
+
+            
+            function createUser(name, email) {
+                $.ajax({
+                    url: 'http://192.168.0.169/api.php/users',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ name: name, email: email }),
+                    success: function(data) {
+                        console.log(data);
+                        fetchUsers(); // 사용자 생성 후 다시 조회
+                    }
+                });
+            }
+
+            // 사용자 수정 함수
+            function updateUser(id, name) {
+                $.ajax({
+                    url: 'http://192.168.0.169/api.php/users/' + id,
+                    method: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ name: name }),
+                    success: function(data) {
+                        console.log(data);
+                        fetchUsers(); // 수정 후 다시 조회
+                    }
+                });
+            }
+
+            // 사용자 삭제 함수
+            function deleteUser(id) {
+                $.ajax({
+                    url: 'http://192.168.0.169/api.php/users/' + id,
+                    method: 'DELETE',
+                    success: function(data) {
+                        console.log(data);
+                        fetchUsers(); // 삭제 후 다시 조회
+                    }
+                });
+            }
+
+            // 사용자 목록 표시 함수
+            function displayUsers(users) {
+                const userList = $('#userList');
+                userList.empty(); // 기존 목록 초기화
+                
+                users.forEach(user => {
+                    userList.append(`<div>ID: ${user.id}, 이름: ${user.name}, 이메일: ${user.email}</div>`);
+                });
+            }
+
+            // 검색 버튼 클릭 이벤트
+            $('#searchBtn').click(function() {
+                const name = $('#searchName').val();
+				if(name){
+					fetchUsers(name); 
+				}else{
+					fetchUsers(); // 전체 조회
+				}
+            });
+
+            // 생성 버튼 클릭 이벤트
+            $('#createBtn').click(function() {
+                const name = $('#newName').val();
+                const email = $('#newEmail').val();
+                createUser(name, email); // 사용자 생성
+            });
+
+            // 수정 버튼 클릭 이벤트
+            $('#updateBtn').click(function() {
+                const id = $('#updateId').val();
+                const name = $('#updateName').val();
+				//const email = $('#updateEmail').val();
+                updateUser(id, name); // 사용자 수정
+            });
+
+            // 삭제 버튼 클릭 이벤트
+            $('#deleteBtn').click(function() {
+                const id = $('#updateId').val();
+                deleteUser(id); // 사용자 삭제
+            });
+			
+			fetchUsers();
+        });
+    </script>
+</head>
+<body>
+    <div class="search">
+        이름: <input type="text" id="searchName">
+        <button id="searchBtn">검색</button>
+    </div>
+    <div class="new">
+        이름: <input type="text" id="newName"> 
+        이메일: <input type="text" id="newEmail"> 
+        <button id="createBtn">생성</button>
+    </div>
+    <div class="list">
+        ID: <input type="text" id="updateId"> 
+        이름: <input type="text" id="updateName"> 
+		<!--이메일: <input type="text" id="updateEmail"--> 
+        <button id="updateBtn">수정</button>
+        <button id="deleteBtn">삭제</button>
+    </div>
+    <div id="userList" style="margin-top: 20px;">
+        <!-- 사용자 목록이 여기에 표시됩니다. -->
+    </div>
+</body>
+</html>

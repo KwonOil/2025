@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>line-height</title>
+        <style>
+            h1 {
+            font-size:60px;  /* 글자 크기 */
+            font-family:Verdana, Geneva, Tahoma, sans-serif;  /* 글꼴 */
+            }
+            .heading {
+            width:100%;  /* 영역 너비 */
+            height:100px;  /* 높이 */
+            background:#222;  /* 배경 색 */
+            color:rgb(255,255,255);  /* 글자 색 */
+            text-align: center; /* 가로 정렬 - 가운데 */
+            /* Do it! line-height 속성을 사용해 세로로 가운데 정렬하기 */
+            line-height :100px;
+            }
+            /* link : 클릭상태 */
+            /* visited : 한번방문(클릭)한 상태 */
+            /* hover : 마우스가 링크에 올라갔을 때 */
+            a:link{
+                color : red;
+            }
+            a:visited{
+                color : green;
+            }
+            a:hover{
+                color : yellow;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="heading">HTML</h1>
+        <a style = "text-decoration: none;" href = "#">링크</a>
+        <p style = "text-decoration: none;">none</p>
+        <p style = "text-decoration: underline;">underline</p>
+        <p style = "text-decoration: overline;">overline</p>
+        <p style = "text-decoration: line-through;">line-through</p>
+    </body>
+</html>

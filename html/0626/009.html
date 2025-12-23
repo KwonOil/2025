@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>CSS position 속성</title>
+        <style>
+            .aaa{
+                font-weight : bold;
+                font-size:3em;
+            }
+            #zzz{
+                border:3px solid blue;
+                color:blue;
+                font-size: 1.5em;
+                text-align: center;
+            }
+            div{
+                border:3px solid blue;
+                padding:10px;
+            }
+            p:hover ~ div{
+                font-size: 5em;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>애국가</h1>
+        <p class = "aaa">동해물과</p>
+        <p id = "zzz">백두산이</p>
+        <p class = "aaa">마르고 닳도록</p>
+    <div>div</div>
+    <p>p</p>
+    <div>div</div>
+    <p>p</p>
+    <div>div</div>
+    <p>p</p>
+    </body>
+</html>

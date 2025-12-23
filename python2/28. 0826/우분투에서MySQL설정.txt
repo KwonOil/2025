@@ -1,0 +1,54 @@
+# 패키지 업데이트
+sudo apt update
+
+# MariaDB(MySQL) 설치
+sudo apt install mariadb-server
+
+# MariaDB(MySQL) 서비스 시작
+sudo systemctl start mariadb
+sudo systemctl enable mariadb
+# 서비스 종료
+sudo systemctl stop mariadb
+# 서비스 재시작
+sudo systemctl restart mariadb
+
+# MariaDB 보안설정(root권한)
+sudo mysql_secure_installation
+
+# MariaDB서버에 로그인
+sudo mysql -u root -p
+show databases;
+
+# 데이터베이스 선택
+use mysql;
+show tables;
+
+# 사용자 생성
+CREATE USER 'root'@'%' IDENTIFIED BY '1234';
+
+# 사용자에게 권한주기
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+
+# 사용자에게 권한회수
+REVOKE ALL PRIVILEGES ON *.* FROM 'root'@'%';
+
+# DB서버에 권한적용
+FLUSH PRIVILEGES;
+
+# 권한적용 확인
+show grants for 'root'@'%';
+
+# 서버 나가기
+quit; or exit;
+
+# nano 에디터 설치
+sudo apt install nano
+
+# MariaDB 환경설정파일 수정
+sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf
+
+>> bind-address를 0.0.0.0 으로 수정
+
+# MariaDB 서비스 재시작
+sudo systemctl restart mariadb
+

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>폼 요소 선택자 예제</title>
+    <style>
+        input[type="button"], button[type="button"] {
+        background: lightblue;
+        }
+        input[type="checkbox"] {
+        accent-color: green;
+        }
+        input[type="file"] {
+        border: 2px dashed #888;
+        }
+        input[type="image"] {
+        border-radius: 8px;
+        }
+        input[type="password"] {
+        background: #f9f9f9;
+        }
+        input[type="radio"] {
+        accent-color: red;
+        }
+        input[type="reset"], button[type="reset"] {
+        color: orange;
+        }
+        input[type="submit"], button[type="submit"] {
+        font-weight: bold;
+        }
+        input[type="text"] {
+        border: 1px solid #333;
+        }
+        input, textarea, select, button {
+        font-family: inherit;
+        }
+        input[type="checkbox"]:checked, input[type="radio"]:checked {
+        outline: 2px solid blue;
+        }
+        option:selected {
+        background: yellow;
+        }
+        input:focus, textarea:focus {
+        border-color: #007bff;
+        }
+        input:disabled, button:disabled {
+        opacity: 0.5;
+        }
+        input:enabled, button:enabled {
+        cursor: pointer;
+        }
+        form {
+        max-width: 400px;
+        margin: 2rem auto;
+        padding: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #fafaff;
+        }
+        label {
+        display: block;
+        margin-top: 1em;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <label>
+        텍스트 입력(:text)
+        <input type="text" placeholder="텍스트 입력">
+        </label>
+
+        <label>
+        비밀번호 입력(:password)
+        <input type="password" placeholder="비밀번호">
+        </label>
+
+        <label>
+        체크박스(:checkbox, :checked)
+        <input type="checkbox" checked> 체크됨
+        <input type="checkbox"> 체크 안됨
+        </label>
+
+        <label>
+        라디오(:radio, :checked)
+        <input type="radio" name="radio1" checked> 선택됨
+        <input type="radio" name="radio1"> 선택 안됨
+        </label>
+
+        <label>
+        파일 선택(:file)
+        <input type="file">
+        </label>
+
+        <label>
+        이미지 버튼(:image)
+        <input type="image" src="https://media.discordapp.net/attachments/1383744619724017728/1394184021138735164/submit.png?ex=6875e28d&is=6874910d&hm=ada7b52b9169a946d3117309d2646ddca709f470d6c290444221b49bd962d294&=&format=webp&quality=lossless&width=725&height=221" height="30" alt="이미지버튼">
+        </label>
+
+        <label>
+        버튼(:button)
+        <input type="button" value="Input Button">
+        <button type="button">Button Element</button>
+        </label>
+
+        <label>
+        리셋(:reset)
+        <input type="reset" value="Input Reset">
+        <button type="reset">Button Reset</button>
+        </label>
+
+        <label>
+        제출(:submit)
+        <input type="submit" value="Input Submit">
+        <button type="submit">Button Submit</button>
+        </label>
+
+        <label>
+        텍스트에어리어(:input)
+        <textarea placeholder="텍스트에어리어"></textarea>
+        </label>
+
+        <label>
+        셀렉트(:input, :selected)
+        <select>
+            <option>선택하세요</option>
+            <option selected>선택됨</option>
+            <option>선택안됨</option>
+        </select>
+        </label>
+
+        <label>
+        비활성화(:disabled)
+        <input type="text" value="비활성화" disabled>
+        <button type="button" disabled>비활성화 버튼</button>
+        </label>
+
+        <label>
+        활성화(:enabled)
+        <input type="text" value="활성화">
+        <button type="button">활성화 버튼</button>
+        </label>
+    </form>
+</body>
+</html>

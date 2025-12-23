@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인사 정보 입력</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            margin-top: 10px;
+            display: block;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 95%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>인사 정보 입력</h1>
+        <form action = "http://192.168.0.168/0620/register.php" method = "get">
+            <label for="employeeName">직원 이름:</label>
+            <input type="text" id="employeeName" name="employeeName" required>
+            
+            <label for="employeeId">직원 ID:</label>
+            <input type="text" id="employeeId" name="employeeId" required>
+            
+            <label for="department">부서:</label>
+            <select id="department" name="department">
+                <option value="hr">인사팀</option>
+                <option value="it">IT팀</option>
+                <option value="sales">영업팀</option>
+            </select>
+            
+            <button type="submit">제출</button>
+        </form>
+    </div>
+</body>
+</html>

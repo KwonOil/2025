@@ -1,0 +1,20 @@
+h1{
+    font-size : 45px;
+    color : burlywood;
+}
+
+div.syntax {
+    display : none;
+}
+
+.syntax.sp1 {
+    display : none;
+}
+
+.syntax.sp2 {
+    display : block;
+}
+
+.syntax.sp3 {
+    display : none;
+}

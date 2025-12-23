@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery 선택자 필터링 예제</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        section {
+            height: 40px;
+            box-sizing: border-box;
+            margin: 5px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+        }
+        h1{
+            margin: 5px;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        $(function(){
+            // :eq(n) - index가 n인 요소
+            $("div#0 > section:eq(4)").css({"background-color":"lightblue"});
+            // :gt(n) - index가 n초과인 요소들
+            $("div#0 > section:gt(5)").css({"background-color":"coral", "color":"white"});
+            // :lt(n) - index가 n미만인 요소들
+            $("div#0 > section:lt(3)").css({"background-color":"green", "color":"white"});
+
+            // :odd - 선택한 요소 중에서 인덱스가 홀수인 요소들
+            $("div#1 > section:odd").css({"background-color":"green", "color":"white"});
+            // :even - 선택한 요소 중에서 인덱스가 짝수인 요소들
+            $("div#1 > section:even").css({"background-color":"coral", "color":"white"});
+
+            // :first - 선택한 요소 중에서 첫 번째 요소
+            $("div#2 > section:first").css({"background-color":"green", "color":"white"});
+            // :last - 선택한 요소 중에서 마지막 요소
+            $("div#2 > section:last").css({"background-color":"coral", "color":"white"});
+
+            // :not(선택자) - 선택한 요소 중에서 지정한 선택자와 일치하지 않는 요소들
+            $("div#3 > section:not(:first)").css({"background-color":"green", "color":"white"});
+            // :has(선택자) - 선택한 요소 중에서 지정한 선택자와 일치하는 자손 요소를 갖는 요소들
+            $("div#3 > section:has(:first)").css({"background-color":"coral", "color":"white"});
+
+            // :contains(텍스트) - 선택한 요소 중에서 지정한 텍스트를 포함하는 요소들
+            $("div#4 > section:contains('Item')").css({"background-color":"coral", "color":"white"});
+
+            // :empty - 선택한 요소 중에서 자식 요소를 가지고 있지 않은 요소들(빈칸도 없어야 함)
+            $("div#5 > section:empty").css({"background-color":"green", "color":"white"});
+
+            // :parent - 선택한 요소 중에서 자식 요소를 가지고 있는 요소들
+            $("div#6 > section:parent").css({"background-color":"coral", "color":"white"});
+        });
+    </script>
+</head>
+<body>
+    <h1>eq(n), gt(n), lt(n)</h1>
+    <div id = 0>
+        <section>Item 1</section>
+        <section>Item 2</section>
+        <section>Item 3</section>
+        <section>Item 4</section>
+        <section>Item 5</section>
+        <section>Item 6</section>
+        <section><span>Item 7</span></section>
+        <section id="empty"></section>
+    </div>
+
+    <h1>odd, even</h1>
+
+    <div id = 1>
+        <section>Item 1</section>
+        <section>Item 2</section>
+        <section>Item 3</section>
+        <section>Item 4</section>
+        <section>Item 5</section>
+        <section>Item 6</section>
+        <section><span>Item 7</span></section>
+        <section id="empty"></section>
+    </div>
+    
+    <h1>first, last</h1>
+    
+    <div id = 2>
+        <section>Item 1</section>
+        <section>Item 2</section>
+        <section>Item 3</section>
+        <section>Item 4</section>
+        <section>Item 5</section>
+        <section>Item 6</section>
+        <section><span>Item 7</span></section>
+        <section id="empty"></section>
+    </div>
+    
+    <h1>not, has</h1>
+    
+    <div id = 3>
+        <section>Item 1</section>
+        <section>Item 2</section>
+        <section>Item 3</section>
+        <section>Item 4</section>
+        <section>Item 5</section>
+        <section>Item 6</section>
+        <section><span>Item 7</span></section>
+        <section id="empty"></section>
+    </div>
+    
+    <h1>contains</h1>
+    
+    <div id = 4>
+        <section>Item 1</section>
+        <section>Item 2</section>
+        <section>Item 3</section>
+        <section>Item 4</section>
+        <section>Item 5</section>
+        <section>Item 6</section>
+        <section><span>Item 7</span></section>
+        <section id="empty"></section>
+    </div>
+    
+    <h1>empty</h1>
+    
+    <div id = 5>
+        <section>Item 1</section>
+        <section>Item 2</section>
+        <section>Item 3</section>
+        <section>Item 4</section>
+        <section>Item 5</section>
+        <section>Item 6</section>
+        <section><span>Item 7</span></section>
+        <section id="empty"></section>
+        <section id="empty2"> </section>
+    </div>
+    
+    <h1>parent</h1>
+    
+    <div id = 6>
+        <section>Item 1</section>
+        <section>Item 2</section>
+        <section>Item 3</section>
+        <section>Item 4</section>
+        <section>Item 5</section>
+        <section>Item 6</section>
+        <section><span>Item 7</span></section>
+        <section id="empty"></section>
+        <section id="empty2"> </section>
+    </div>
+</body>
+</html>

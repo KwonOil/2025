@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "myDiv">Hello, World!</div>
+    
+    <script>
+        const element = document.getElementById('myDiv');
+        console.log(element.textContent);
+    </script>
+    
+    <div class = "myClass">첫 번째</div>
+    <div class = "myClass">두 번째</div>
+    
+    <script>
+        const elements = document.getElementsByClassName("myClass");
+
+        for(let i = 0; i < elements.length; i++){
+            console.log(elements[i].textContent);
+        }
+    </script>
+
+    <a href = "#1">첫 번째 링크</a>
+    <a href = "#2">두 번째 링크</a>
+    <a href = "#3">세 번째 링크</a>
+    <script>
+        const elements3 = document.getElementsByTagName("a");
+
+        for(let i = 0; i < elements3.length; i++){
+            console.log(elements3[i].href);
+        }
+    </script>
+    <script>
+        const element2 = document.querySelector(".myClass");
+        console.log(element2.innerText);
+
+        const elements4 = document.querySelectorAll(".myClass");
+        for(let i = 0; i < elements4.length; i++){
+            console.log(elements4[i].innerText);
+        }
+    </script>
+</body>
+</html>

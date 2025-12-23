@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>자바스크립트 인트로</title>
+        <script>
+            // 디버깅 할 때 주로 이용(웹 화면에 출력)
+            document.write("<h1>여러분을 환영합니다!!!</h1>");
+            // alert("여러분을 환영합니다@@@");
+            // 디버깅 할 때 주로 이용(콘솔에 출력)
+            console.log("여러분을 환영합니다###");
+
+            var a = 10;
+            a = "안녕하세요";
+            console.log(a);
+
+            // var x = 10; // var : 중복 선언 가능 / 호이스팅 되지만 초기화는 되지 않아 undefined가 뜬다
+            // let y = 20; // let : 중복 선언 불가능 / 호이스팅 되지만 사용할 수 없어 ReferenceError가 뜬다
+            // const z = 30; // 상수
+            // console.log(x,y,z);
+
+            let x = 30;
+            let y = 20;
+            let z0 = x + y;
+            let z1 = x - y;
+            let z2 = x * y;
+            let z3 = x / y;
+            let z4 = x % y;
+            console.log("x = " + x + ", y = " + y);
+            console.log("x + y = " + z0);
+            console.log("x - y = " + z1);
+            console.log("x * y = " + z2);
+            console.log("x / y = " + z3);
+            console.log("x % y = " + z4);
+
+            let song1 = "이순신";
+            let song2 = "님 안녕하세요";
+            let song = song1 + song2;
+            console.log(song);
+
+            // 현재 날짜를 표시하는 함수
+            function printDate(){
+                let now = new Date();               // Date()를 객체로 생성
+                let year = now.getFullYear();       // 년도 (0~9999)
+                let month = now.getMonth() + 1;     // 월 (0~11)- 0:1월
+                let date = now.getDate();           // 일 (1~31)
+                let day = now.getDay();             // 요일(0~6) - 0:일요일
+                let dateString = now.toDateString();// 문자열
+                let hour = now.getHours();          // 시 (0~23)
+                let minute = now.getMinutes();      // 분 (0~59)
+                let second = now.getSeconds();      // 초 (0~59)
+                let msecond = now.getMilliseconds();// 밀리초(0~999)
+                let timeString = now.toTimeString();// 시간 문자열
+                // document.getElementById("date").innerHTML = Date();
+                switch(day){
+                    case 0:
+                        day = "일";
+                        break;
+                    case 1:
+                        day = "월";
+                        break;
+                    case 2:
+                        day = "화";
+                        break;
+                    case 3:
+                        day = "수";
+                        break;
+                    case 4:
+                        day = "목";
+                        break;
+                    case 5:
+                        day = "금";
+                        break;
+                    case 6:
+                        day = "토";
+                        break;
+                }
+                document.getElementById("date").innerHTML =
+                    `<p><b>Date() :</b> ${Date()}<br>
+                    <b>오늘은 :</b> ${year}년 ${month}월 ${date}일 ${day}요일입니다.<br>
+                    <b>toDateString() :</b> ${dateString}<br>
+                    <b>지금은 :</b> ${hour}시 ${minute}분 ${second}.${msecond}초 입니다<br>
+                    <b>toTimeString() :</b> ${timeString}</p>`;
+                // 폰트 사이즈 조정
+                document.getElementById("date").style.fontSize = "20px";
+                // 폰트 굵기 조정
+                // document.getElementById("date").style.fontWeight = "bold";
+                // document.getElementById("date").style.color = "blue";
+            }
+            // 창의 내용이 전부 표시 된 후에 실행
+            window.onload = function(){
+                // 문자열
+                let dbtext = "즐거운 금요일입니다!";
+                // 원래 있던 내용에 덮어쓰기
+                document.getElementById("my").innerHTML = `<span id = 'innerT' style = 'color:blue; font-size:30px;'>안녕하세요, ${dbtext}</span><br><button type = "button" onclick = "window.print();">인쇄</button>`;
+                // 인쇄하는 기능 : window.print()
+
+                // html 문서에서 ID가 my인 태그 안에 있는 HTML문 전체를 가져와서 공백제거
+                let gettxt = document.getElementById("my").innerHTML.trim();
+                // html 문서에서 ID가 my인 태그 안에 있는 HTML문 중에서 요소만 가져와서 공백제거
+                let gettxt2 = document.getElementById("my").textContent.trim();
+                // trim() : 공백 제거
+                
+                // 로그 출력
+                console.log("gettxt: " + gettxt);
+                console.log("gettxt2: " + gettxt2);
+
+                // 내용 덮어쓰기
+                // document.getElementById("my").innerHTML = "<span style = 'color:blue; font-size:30px;'>안녕하세요!" + gettxt + "</span>";
+                // 배경 색 변경
+                document.getElementById("innerT").style.backgroundColor = "red";
+                // 글자 색 변경
+                document.getElementById("innerT").style.color = "white";
+            }
+        </script>
+    </head>
+    <body>
+        <p id = "my">하하하하하</p>
+
+        <!-- 날짜 표기하기 -->
+        <h1>head 태그 내의 자바스크립트</h1>
+        <p>자바스크립트를 이용하면 현재 날짜와 시간 정보에도 손쉽게 접근할 수 있어요!</p>
+        <button onclick="printDate()">현재 날짜와 시간 표시하기!</button>
+        <p id="date"></p>
+    </body>
+</html>

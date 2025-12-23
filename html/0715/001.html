@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML문서</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="../myfunc.js"></script>
+    <style>
+        .container {
+            border: 2px solid #000;
+            padding: 20px;
+            margin: 10px;
+        }
+        .child {
+            border: 1px solid #00f;
+            padding: 10px;
+            margin: 5px;
+        }
+        .highlight {
+            background-color: #ffcc00;
+        }
+    </style>
+    <script>
+        $(function(){
+            $("#btnParent").click(function() {
+                $("#inner2").parent().toggleClass("highlight");
+            });
+
+            $("#btnParents").click(function() {
+                $("#inner2").parents().toggleClass("highlight");
+            });
+
+            $("#btnParentsUntil").click(function() {
+                $("#inner2").parentsUntil("#outer").toggleClass("highlight");
+            });
+
+            $("#btnClosest").click(function() {
+                //$("#inner2").closest("#inner1").toggleClass("highlight");
+                $("#inner2").closest(".container").toggleClass("highlight");
+            });
+        });
+        
+    </script>
+</head>
+<body>
+    <div class="container" id="outer">
+        <div class="child" id="inner1">
+            Inner 1
+            <div class="child" id="inner2">
+                Inner 2
+                <div class="child" id="inner3">
+                    Inner 3
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="btnParent">Parent</button>
+    <button id="btnParents">Parents</button>
+    <button id="btnParentsUntil">Parents Until</button>
+    <button id="btnClosest">Closest</button>
+</body>
+</html>

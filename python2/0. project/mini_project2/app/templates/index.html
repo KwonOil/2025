@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<title>지하철 지연 예측</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<h1>지하철 지연 예측</h1>
+
+<div class="card">
+    <form id="predict-form" novalidate>
+    <div class="row">
+        <label for="line_no">노선</label>
+        <select id="line_no" name="line_no" required>
+        <option value="" disabled selected>노선을 선택하세요</option>
+        </select>
+    </div>
+
+    <div class="row">
+        <label for="direction">방향</label>
+        <select id="direction" name="direction" required disabled>
+        <option value="" disabled selected>노선을 먼저 선택하세요</option>
+        </select>
+        <div class="muted">선택한 노선의 실제 방향만 표시됩니다.</div>
+    </div>
+
+    <div class="row">
+        <label for="hour_input">시간</label>
+        <select id="hour_input" name="hour_input" required></select>
+        <div class="muted">시간은 HH:MM 형식(30분 간격)으로 선택합니다.</div>
+    </div>
+
+    <button type="submit" id="btnPredict">예측하기</button>
+    <div id="loader">예측 중...</div>
+    <div id="error" class="error"></div>
+    </form>
+</div>
+
+<div id="result" class="result card" style="display:none;">
+    <h2>예측 결과</h2>
+    <p><b>노선:</b> <span id="r-line"></span></p>
+    <p><b>방향:</b> <span id="r-dir"></span></p>
+    <p><b>시간:</b> <span id="r-band"></span></p>
+    <hr />
+    <p><b>지연 발생 확률:</b> <span id="r-prob"></span> %</p>
+    <p><b>정확도(accuracy):</b> <span id="r-acc"></span> %</p>
+    <p><b>정밀도(precision):</b> <span id="r-prec"></span> %</p>
+    <p><b>민감도(recall):</b> <span id="r-rec"></span> %</p>
+    <p><b>F1-score:</b> <span id="r-f1"></span> %</p>
+    <p><b>예측 최대 지연:</b> <span id="r-max"></span> 분</p>
+    <p><b>기대 지연분(확률×분):</b> <span id="r-exp"></span> 분</p>
+    <p><b>RMSE:</b> <span id="r-rmse"></span> 분</p>
+    <p><b>MAE:</b> <span id="r-mae"></span> 분</p>
+
+    <h3 style="margin-top:16px;">혼동행렬</h3>
+    <div id="cm-container"></div>
+    <div class="muted">열=예측(1→0), 행=실제(1→0) — [TP, FN] / [FP, TN]</div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Static Files Example</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Static Files Demo</h1>
+
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='images/flask-logo.png') }}" alt="Flask Logo">
+        </div>
+
+        <div class="button-container">
+            <button id="colorButton">Change Color</button>
+            <button id="greetButton">Show Greeting</button>
+        </div>
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+

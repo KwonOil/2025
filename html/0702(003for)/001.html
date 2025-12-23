@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>250702 JAVASCRIPT 학습</title>
+        <meta charset="UTF-8">
+        <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+        <script src = "js/001.js"></script>
+    </head>
+    <body>
+        <h1>환율 계산기</h1>
+        <input type = "number" id = "amount" placeholder="한국 원화 입력"/>
+        <select id = "currency">
+            <option value = "usd">USD (미국 달러)</option>
+            <option value = "eur">EUR (유로)</option>
+            <option value = "jpy">JPY (일본 엔)</option>
+            <option value = "cnh">CNH (중국 위안)</option>
+        </select>
+        <button onclick = "convertCurrency()">환전하기</button>
+        <p id = "conversionResult"></p>
+    </body>
+</html>

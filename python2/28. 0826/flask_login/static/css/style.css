@@ -1,0 +1,17 @@
+body { 
+    font-family: 'Malgun Gothic', sans-serif; 
+    background-color: #f4f4f4; 
+}
+.container { 
+    max-width: 600px; 
+    margin: 100px auto; 
+    padding: 20px; 
+    background: white; 
+    border-radius: 5px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+h2 { text-align: center; }
+.logout { text-align: center; margin-top: 20px; }
+a { text-decoration: none; color: #5cb85c; }
+.description { margin: 20px 0; }
+pre { background: #f8f8f8; padding: 10px; border-radius: 5px; }

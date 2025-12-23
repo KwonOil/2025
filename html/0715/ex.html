@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML문서</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="../myfunc.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        ol { padding : 0px 20px; }
+        li { margin: 10px 0; }
+        p { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>수학 문제 채점기</h1>
+    <ol class = "question1">
+        <li> 2 + 3 = ? <input type = "number" data-result = "5"/></li>
+        <li> 4 - 1 = ? <input type = "number" data-result = "3"/></li>
+        <li> 6 x 2 = ? <input type = "number" data-result = "12"/></li>
+        <li> 8 ÷ 4 = ? <input type = "number" data-result = "2"/></li>
+        <li> 5 + 5 = ? <input type = "number" data-result = "10"/></li>
+        <li> 9 - 6 = ? <input type = "number" data-result = "3"/></li>
+        <li> 3 x 3 = ? <input type = "number" data-result = "9"/></li>
+        <li> 10 ÷ 2 = ? <input type = "number" data-result = "5"/></li>
+        <li> 7 + 2 = ? <input type = "number" data-result = "9"/></li>
+        <li> 12 - 4 = ? <input type = "number" data-result = "8"/></li>
+
+    </ol>
+    <button>체점하기</button>
+    <p id = "result"></p>
+
+    <script>
+    $(function() {
+        $("button").click(function(){
+            let cnt = 0;
+            $("ol.question1").find("input").each(function(){
+                let inputValue = parseInt($(this).val());
+                let resultValue= parseInt($(this).data('result'));
+                if(inputValue === resultValue) cnt++;
+            });
+            let resultText = `${cnt} / ${$("li").length}`;
+            $("#result").text(`체점 결과 : ${resultText}`);
+        });
+    });
+</script>
+</body>
+</html>

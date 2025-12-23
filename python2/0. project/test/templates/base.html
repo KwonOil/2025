@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}지하철 지연 예측{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  </head>
+  <body>
+    <header>
+      <h1>지하철 지연 예측 데모</h1>
+      <p class="subtitle">노선/방향/시간 입력 → 지연 확률 & 예측 지연 분</p>
+    </header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+    <footer>
+      <small>© mini_project3 — Flask + ML Inference</small>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>형제요소 선택</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .container {
+            border: 2px solid #000;
+            padding: 20px;
+            margin: 10px;
+        }
+        .child {
+            border: 1px solid #00f;
+            padding: 10px;
+            margin: 5px;
+        }
+        .highlight {
+            background-color: #ffcc00;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="child" id="item1">Item 1</div>
+    <div class="child" id="item2">Item 2</div>
+    <div class="child" id="item3">Item 3</div>
+    <div class="child" id="item4">Item 4</div>
+    <div class="child" id="item5">Item 5</div>
+</div>
+
+<button id="btnSiblings">Siblings</button>
+<button id="btnNext">Next</button>
+<button id="btnNextAll">Next All</button>
+<button id="btnNextUntil">Next Until</button>
+<button id="btnPrev">Prev</button>
+<button id="btnPrevAll">Prev All</button>
+<button id="btnPrevUntil">Prev Until</button>
+
+<script>
+    $(function() {
+        $("#btnSiblings").click(function() {
+            $("#item3").siblings().toggleClass("highlight");
+        });
+
+        $("#btnNext").click(function() {
+            $("#item3").next().toggleClass("highlight");
+        });
+
+        $("#btnNextAll").click(function() {
+            $("#item3").nextAll().toggleClass("highlight");
+        });
+
+        $("#btnNextUntil").click(function() {
+            $("#item3").nextUntil("#item5").toggleClass("highlight");
+        });
+
+        $("#btnPrev").click(function() {
+            $("#item3").prev().toggleClass("highlight");
+        });
+
+        $("#btnPrevAll").click(function() {
+            $("#item3").prevAll().toggleClass("highlight");
+        });
+
+        $("#btnPrevUntil").click(function() {
+            $("#item3").prevUntil("#item1").toggleClass("highlight");
+        });
+    });
+</script>
+
+</body>
+</html>

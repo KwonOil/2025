@@ -1,0 +1,13 @@
+h1{
+  background-color: pink;
+  color : lightgoldenrodyellow;
+}
+.hotLine{
+  color: red;
+}
+li{
+  list-style-type : square;
+}
+body{
+  font-family:  "맑은 고딕", 궁서, 굴림, 돋움, 굴림;
+}

@@ -1,0 +1,37 @@
+function setCookie(name, value, days) {
+    let expires = "";
+    if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+
+function getCookie(name) {
+    let nameEQ = name + "=";
+    let ca = document.cookie.split(';');
+    for(let i=0;i < ca.length;i++) {
+        let c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+window.onload = function() {
+    const user = getCookie("user");
+    const welcomeMessageDiv = document.getElementById("welcome-message");
+
+    if (user) {
+        welcomeMessageDiv.innerHTML = "<h2>" + user + "님 환영합니다!</h2><button onclick='logout()'>로그아웃</button>";
+    } else {
+        window.location.href = "008.html";
+    }
+};
+
+function logout() {
+    //document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    setCookie("user", "", -1);
+    window.location.href = "008.html";
+}
